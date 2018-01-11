@@ -4,7 +4,9 @@ Application for buying tickets for a cinema theater 📽.
 
 ## Run locally
 
+```
 Localhost: http://localhost:3000
+```
 
 ## API calls:
 
