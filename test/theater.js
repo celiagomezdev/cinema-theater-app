@@ -27,7 +27,7 @@ test('Create a new customer', async t => {
     name: faker.name.findName(),
     email: faker.internet.email(),
     funds: 50,
-    seatId: 10
+    seatId: faker.random.uuid()
   }
 
   const res = await request(app)
@@ -46,7 +46,7 @@ test('Create duplicated customer', async t => {
     name: faker.name.findName(),
     email: 'hjgk@hotmail.com',
     funds: 50,
-    seatId: 15
+    seatId: faker.random.uuid()
   }
 
   const res = await request(app)
@@ -57,7 +57,7 @@ test('Create duplicated customer', async t => {
     name: faker.name.findName(),
     email: 'hjgk@hotmail.com',
     funds: 50,
-    seatId: 32
+    seatId: faker.random.uuid()
   }
 
   const dupRes = await request(app)
@@ -65,4 +65,47 @@ test('Create duplicated customer', async t => {
     .send(dupCustomer)
 
   t.is(dupRes.status, 500)
+})
+
+//Seat tests
+
+test('Get a list of seats', async t => {
+  const seat = {
+    number: faker.random.number(),
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true,
+    customerId: faker.random.uuid()
+  }
+
+  const creation = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  const res = await request(app).get('/theater/seat')
+
+  t.is(res.status, 200)
+  t.true(Array.isArray(res.body), 'Body should be an array')
+  t.true(res.body.length > 0)
+})
+
+test('Create a new seat', async t => {
+  const seat = {
+    number: faker.random.number(),
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true,
+    customerId: faker.random.uuid()
+  }
+
+  const res = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  t.is(res.status, 200)
+  t.is(res.body.number, seat.number)
+  t.is(res.body.row, seat.row)
+  t.is(res.body.movie, seat.movie)
 })

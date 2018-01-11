@@ -39,6 +39,7 @@ router.post('/seat', async (req, res, next) => {
     const seat = await SeatService.add(newSeat)
     res.send(seat)
   } catch (err) {
+    console.log(err.message)
     if (err.name === 'MongoError' && err.code === 11000) {
       return res.status(500).send({
         success: false,

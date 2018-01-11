@@ -7,3 +7,8 @@ function findAll() {
 async function add(seat) {
   return SeatModel.create(seat)
 }
+
+module.exports = {
+  findAll,
+  add
+}
