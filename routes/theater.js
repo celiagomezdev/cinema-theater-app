@@ -37,6 +37,16 @@ router.post('/customer', async (req, res, next) => {
   }
 })
 
+router.post('/customer/:id/booking', async (req, res, next) => {
+  const customer = await CustomerService.find(req.params.id)
+  const seat = await SeatService.find(req.body.seatId)
+
+  customer.seatId = seat._id
+  const updatedCustomer = await customer.save()
+  console.log(updatedCustomer)
+  res.send(updatedCustomer)
+})
+
 //Seat routes
 
 router.get('/seat', async (req, res, next) => {

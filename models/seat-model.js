@@ -25,8 +25,7 @@ const SeatSchema = mongoose.Schema({
   },
   customerId: {
     type: String,
-    default: '',
-    unique: true
+    default: ''
   }
 })
 
