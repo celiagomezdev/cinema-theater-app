@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1 Cinema Theater customer list
+    h2 Number of customers: #{customers.length}
+    if customers.length
+      ul
+        each customer, index in customers 
+          p #{index + 1}. <b>Name</b>: #{customer.name}. <b>Email</b>: #{customer.email}. <b>Seat Id</b>: #{customer.seatId}
+    else
+      p There are no customers yet :(
+        
+    script.
+      console.log(!JSON.stringify(customers))

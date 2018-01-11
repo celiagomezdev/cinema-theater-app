@@ -10,6 +10,11 @@ router.get('/customer', async (req, res, next) => {
   res.send(await CustomerService.findAll())
 })
 
+router.get('/customer/all', async (req, res, next) => {
+  const customers = await CustomerService.findAll()
+  res.render('customer-list', { customers })
+})
+
 router.post('/customer', async (req, res, next) => {
   const newCustomer = req.body
   try {
