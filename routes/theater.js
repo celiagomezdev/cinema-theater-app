@@ -38,6 +38,11 @@ router.get('/seat', async (req, res, next) => {
   res.send(await SeatService.findAll())
 })
 
+router.get('/seat/all', async (req, res, next) => {
+  const seats = await SeatService.findAll()
+  res.render('seat-list', { seats })
+})
+
 router.post('/seat', async (req, res, next) => {
   const newSeat = req.body
   try {

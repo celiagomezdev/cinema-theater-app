@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1 Cinema Theater seat list
+    h2 Number of seats: #{seats.length}
+    if seats.length
+      ul
+        each seat, index in seats 
+          p #{index + 1}. <b>Number</b>: #{seat.number}. <b>Row</b>: #{seat.row}. <b>Customer Id</b>: #{seat.customerId}. <b>Available</b>: #{seat.available}
+    else
+      p There are no seats yet :(
+        
+    script.
+      console.log(!JSON.stringify(seats))
