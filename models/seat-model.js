@@ -18,7 +18,7 @@ const SeatSchema = mongoose.Schema({
     required: true
   },
   available: {
-    type: Bool,
+    type: Boolean,
     default: true,
     required: true
   },
