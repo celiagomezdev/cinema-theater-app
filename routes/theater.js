@@ -32,7 +32,6 @@ router.post('/customer', async (req, res, next) => {
         message: 'An user with this email is already registered.'
       })
     }
-    console.log(err)
     return res.status(500).send({ success: false, message: err.message })
   }
 })
@@ -43,7 +42,6 @@ router.post('/customer/:id/booking', async (req, res, next) => {
 
   customer.seatId = seat._id
   const updatedCustomer = await customer.save()
-  console.log(updatedCustomer)
   res.send(updatedCustomer)
 })
 
@@ -74,14 +72,12 @@ router.post('/seat', async (req, res, next) => {
     const seat = await SeatService.add(newSeat)
     res.send(seat)
   } catch (err) {
-    console.log(err.message)
     if (err.name === 'MongoError' && err.code === 11000) {
       return res.status(500).send({
         success: false,
         message: 'This seat is already registered.'
       })
     }
-    console.log(err)
     return res.status(500).send({ success: false, message: err.message })
   }
 })

@@ -41,7 +41,7 @@ test('Create a new customer', async t => {
   t.is(res.body.seat, customer.seat)
 })
 
-test('Create duplicated customer', async t => {
+test('Avoid creating duplicated customers', async t => {
   const customer = {
     name: faker.name.findName(),
     email: 'hjgk@hotmail.com',
@@ -110,7 +110,7 @@ test('Create a new seat', async t => {
   t.is(res.body.movie, seat.movie)
 })
 
-test('Create duplicated seat', async t => {
+test('Avoid creating duplicated seats', async t => {
   const seat = {
     number: 45,
     row: faker.random.number(),
@@ -121,7 +121,7 @@ test('Create duplicated seat', async t => {
   }
 
   const res = await request(app)
-    .post('/theater/customer')
+    .post('/theater/seat')
     .send(seat)
 
   const dupSeat = {
@@ -134,8 +134,49 @@ test('Create duplicated seat', async t => {
   }
 
   const dupRes = await request(app)
-    .post('/theater/customer')
+    .post('/theater/seat')
     .send(dupSeat)
 
   t.is(dupRes.status, 500)
+})
+
+test('Make a booking', async t => {
+  t.plan(3)
+
+  const seat = {
+    number: faker.random.number(),
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true,
+    customerId: faker.random.uuid()
+  }
+
+  const seatRes = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  t.is(seatRes.status, 200)
+
+  const customer = {
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    funds: 50,
+    seatId: faker.random.uuid()
+  }
+
+  const customerRes = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  t.is(customerRes.status, 200)
+
+  const customerId = customerRes.body._id
+  const seatIdBodyReq = { seatId: seatRes.body._id }
+
+  const bookingRes = await request(app)
+    .post(`/theater/customer/${customerId}/booking`)
+    .send(seatIdBodyReq)
+
+  t.is(bookingRes.status, 200)
 })
