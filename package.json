@@ -1,0 +1,32 @@
+{
+  "name": "cinema-theater-app",
+  "version": "1.0.0",
+  "description": "Cinema Theater App",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc ava --verbose",
+    "test-watch": "ava --verbose --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celiagomezdev/cinema-theater-app.git"
+  },
+  "author": "Celia Gómez de Villavedón Pedrosa <celiagomezdev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/celiagomezdev/cinema-theater-app/issues"
+  },
+  "homepage": "https://github.com/celiagomezdev/cinema-theater-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.9",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "ava": "0.23.0",
+    "nyc": "^11.3.0",
+    "supertest": "^3.0.0"
+  }
+}
