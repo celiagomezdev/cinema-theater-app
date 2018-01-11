@@ -38,4 +38,8 @@ POST Request
 /theater/customer/THE_USER_ID/booking'
 ```
 
+```
 body: { seatId: THE_SEAT_ID}
+```
+
+Introduce instead of _THE_USER_ID_ the id of the user, and instead of _THE_SEAT_ID_ the id of the seat.
