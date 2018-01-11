@@ -7,7 +7,7 @@ const SeatService = require('../services/seat-service')
 //Customer routes
 
 router.get('/customer', async (req, res, next) => {
-  res.send(await TheaterService.findAll)
+  res.send(await CustomerService.findAll)
 })
 
 router.post('/customer', async (req, res, next) => {

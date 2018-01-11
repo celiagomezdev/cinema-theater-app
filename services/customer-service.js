@@ -1,2 +1,9 @@
 const CustomerModel = require('../models/customer-model')
-const SeatModel = require('../models/seat-model')
+
+function findAll() {
+  return CustomerModel.find()
+}
+
+async function add(customer) {
+  return CustomerModel.create(customer)
+}
