@@ -180,3 +180,44 @@ test('Make a booking', async t => {
 
   t.is(bookingRes.status, 200)
 })
+
+test('Avoid making a booking if a ticket is reserved', async t => {
+  t.plan(3)
+
+  const seat = {
+    number: faker.random.number(),
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true,
+    customerId: 'abcdef'
+  }
+
+  const seatRes = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  t.is(seatRes.status, 200)
+
+  const customer = {
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    funds: 50,
+    seatId: 'abcdef'
+  }
+
+  const customerRes = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  t.is(customerRes.status, 200)
+
+  const customerId = customerRes.body._id
+  const seatIdBodyReq = { seatId: seatRes.body._id }
+
+  const bookingRes = await request(app)
+    .post(`/theater/customer/${customerId}/booking`)
+    .send(seatIdBodyReq)
+
+  t.is(bookingRes.status, 404)
+})
