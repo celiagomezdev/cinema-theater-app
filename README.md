@@ -13,17 +13,29 @@ Localhost: http://localhost:3000
 ### Get list of customers:
 
 ```
-http://localhost:3000/theater/customer/all
+/theater/customer/all
 ```
 
 ### Get list of all seats:
 
 ```
-http://localhost:3000/theater/seat/all
+/theater/seat/all
 ```
 
 ### Get list of available seats:
 
+GET Request:
+
 ```
-http://localhost:3000/theater/seat/available
+/theater/seat/available
 ```
+
+### Make a reservation:
+
+POST Request
+
+```
+/theater/customer/THE_USER_ID/booking'
+```
+
+body: { seatId: THE_SEAT_ID}
