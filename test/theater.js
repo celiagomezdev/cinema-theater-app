@@ -149,7 +149,7 @@ test('Make a booking', async t => {
     movie: faker.random.word(),
     price: 8,
     available: true,
-    customerId: faker.random.uuid()
+    customerId: ''
   }
 
   const seatRes = await request(app)
@@ -162,7 +162,7 @@ test('Make a booking', async t => {
     name: faker.name.findName(),
     email: faker.internet.email(),
     funds: 50,
-    seatId: faker.random.uuid()
+    seatId: ''
   }
 
   const customerRes = await request(app)

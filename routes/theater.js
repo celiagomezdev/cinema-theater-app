@@ -40,16 +40,12 @@ router.post('/customer/:id/booking', async (req, res, next) => {
   const customer = await CustomerService.find(req.params.id)
   const seat = await SeatService.find(req.body.seatId)
 
-  const customerSeatId = customer.seatId
-  const seatId = seat._id
-  const seatCustomerId = seat.customerId
-
-  if (customerSeatId !== '') {
+  if (customer.seatId !== '') {
     return res.status(404).send({
       success: false,
       message: 'This customer already has a ticket.'
     })
-    if (seatCustomerId !== '') {
+    if (seat.customerId !== '') {
       return res.status(404).send({
         success: false,
         message: 'This seat is not available.'
@@ -57,8 +53,12 @@ router.post('/customer/:id/booking', async (req, res, next) => {
     }
   }
 
-  customerSeatId = seatId
+  customer.seatId = seat._id
   const updatedCustomer = await customer.save()
+
+  seat.customerId = customer._id
+  const updatedSeat = await seat.save()
+
   res.send(updatedCustomer)
 })
 
