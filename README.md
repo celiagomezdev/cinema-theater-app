@@ -43,3 +43,5 @@ body: { seatId: THE_SEAT_ID}
 ```
 
 Introduce instead of _THE_USER_ID_ the id of the user, and instead of _THE_SEAT_ID_ the id of the seat.
+
+If the customer already has a seat booked, or the seat has been booked for any other customer, there will be a 404 response.
