@@ -1,7 +1,7 @@
 import test from 'ava'
 import request from 'supertest'
-import faker from 'faker'
 import app from '../app'
+import faker from 'faker'
 
 test('Get a list of customers', async t => {
   const customer = {
