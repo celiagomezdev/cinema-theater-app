@@ -16,8 +16,14 @@ Localhost: http://localhost:3000
 http://localhost:3000/theater/customer/all
 ```
 
-### Get list of seats:
+### Get list of all seats:
 
 ```
 http://localhost:3000/theater/seat/all
+```
+
+### Get list of available seats:
+
+```
+http://localhost:3000/theater/seat/available
 ```

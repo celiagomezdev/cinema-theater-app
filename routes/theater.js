@@ -53,6 +53,11 @@ router.get('/seat/all', async (req, res, next) => {
   res.render('seat-list', { seats })
 })
 
+router.get('/seat/available', async (req, res, next) => {
+  const seats = await SeatService.findAvailableSeats()
+  res.render('seat-list', { seats })
+})
+
 router.post('/seat', async (req, res, next) => {
   const newSeat = req.body
   try {

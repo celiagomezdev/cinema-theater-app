@@ -12,8 +12,13 @@ async function find(id) {
   return SeatModel.findOne({ _id: id })
 }
 
+async function findAvailableSeats() {
+  return SeatModel.find({ available: true })
+}
+
 module.exports = {
   findAll,
   find,
+  findAvailableSeats,
   add
 }
