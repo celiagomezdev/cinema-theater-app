@@ -22,9 +22,9 @@ const SeatSchema = mongoose.Schema({
     default: true,
     required: true
   },
-  customer: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: {}
+  customerId: {
+    type: Number,
+    default: 0
   }
 })
 

@@ -7,3 +7,8 @@ function findAll() {
 async function add(customer) {
   return CustomerModel.create(customer)
 }
+
+module.exports = {
+  findAll,
+  add
+}
