@@ -12,11 +12,15 @@ Localhost: http://localhost:3000
 
 ### Get list of customers:
 
+GET Request:
+
 ```
 /theater/customer/all
 ```
 
 ### Get list of all seats:
+
+GET Request:
 
 ```
 /theater/seat/all
