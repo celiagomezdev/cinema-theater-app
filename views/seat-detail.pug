@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  if seat 
+    h1 Seat: #{seat.number}
+    p Seat details:
+    ul
+      p <b>Number</b>: #{seat.number}
+      p <b>Row</b>: #{seat.row}
+      p <b>Movie</b>: #{seat.movie}
+      p <b>Price</b>: #{seat.price}
+      p <b>Available</b>: #{seat.available}
+      p <b>Customer Id</b>: #{seat.customerId}
+      p <b>Seat Id</b>: #{seat._id}
+
+
+  else 
+   h1 We couldn't find this seat!
+  script.
+    console.log(!JSON.stringify(seat))

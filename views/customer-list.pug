@@ -6,7 +6,7 @@ block content
     if customers.length
       ul
         each customer, index in customers 
-          p #{index + 1}. <b>Name</b>: #{customer.name}. <b>Email</b>: #{customer.email}. <b>Seat Id</b>: #{customer.seatId}
+          p #{index + 1}. <b>Name</b>: #{customer.name}. <b>Email</b>: #{customer.email}. <b>Customer Id</b>: #{customer._id}
     else
       p There are no customers yet :(
         

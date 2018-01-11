@@ -8,7 +8,12 @@ async function add(seat) {
   return SeatModel.create(seat)
 }
 
+async function find(id) {
+  return SeatModel.findOne({ _id: id })
+}
+
 module.exports = {
   findAll,
+  find,
   add
 }

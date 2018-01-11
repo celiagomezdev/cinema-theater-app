@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const SeatSchema = mongoose.Schema({
   number: {
     type: Number,
-    required: true
+    required: true,
+    unique: true
   },
   row: {
     type: Number,
@@ -20,7 +21,6 @@ const SeatSchema = mongoose.Schema({
   available: {
     type: Boolean,
     default: true,
-
     required: true
   },
   customerId: {

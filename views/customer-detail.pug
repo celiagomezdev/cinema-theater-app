@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  if customer 
+    h1 Customer: #{customer.name}
+    p Customer details:
+    ul
+      p <b>Name</b>: #{customer.name}
+      p <b>Email</b>: #{customer.email}
+      p <b>Funds</b>: #{customer.funds}
+      p <b>Booked Seat Id</b>: #{customer.seatId}
+      p <b>customerId</b>: #{customer._id}
+
+  else 
+   h1 We couldn't find this customer!
+  script.
+    console.log(!JSON.stringify(customer))

@@ -75,7 +75,7 @@ test('Get a list of seats', async t => {
     row: faker.random.number(),
     movie: faker.random.word(),
     price: 8,
-    available: true,
+    available: false,
     customerId: faker.random.uuid()
   }
 
@@ -108,4 +108,34 @@ test('Create a new seat', async t => {
   t.is(res.body.number, seat.number)
   t.is(res.body.row, seat.row)
   t.is(res.body.movie, seat.movie)
+})
+
+test('Create duplicated seat', async t => {
+  const seat = {
+    number: 45,
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true,
+    customerId: faker.random.uuid()
+  }
+
+  const res = await request(app)
+    .post('/theater/customer')
+    .send(seat)
+
+  const dupSeat = {
+    number: 45,
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true,
+    customerId: faker.random.uuid()
+  }
+
+  const dupRes = await request(app)
+    .post('/theater/customer')
+    .send(dupSeat)
+
+  t.is(dupRes.status, 500)
 })

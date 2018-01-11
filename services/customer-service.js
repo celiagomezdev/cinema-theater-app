@@ -8,7 +8,12 @@ async function add(customer) {
   return CustomerModel.create(customer)
 }
 
+async function find(id) {
+  return CustomerModel.findOne({ _id: id })
+}
+
 module.exports = {
   findAll,
+  find,
   add
 }

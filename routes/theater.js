@@ -10,6 +10,11 @@ router.get('/customer', async (req, res, next) => {
   res.send(await CustomerService.findAll())
 })
 
+router.get('/customer/detail/:id', async (req, res, next) => {
+  const customer = await CustomerService.find(req.params.id)
+  res.render('customer-detail', { customer })
+})
+
 router.get('/customer/all', async (req, res, next) => {
   const customers = await CustomerService.findAll()
   res.render('customer-list', { customers })
@@ -36,6 +41,11 @@ router.post('/customer', async (req, res, next) => {
 
 router.get('/seat', async (req, res, next) => {
   res.send(await SeatService.findAll())
+})
+
+router.get('/seat/detail/:id', async (req, res, next) => {
+  const seat = await SeatService.find(req.params.id)
+  res.render('seat-detail', { seat })
 })
 
 router.get('/seat/all', async (req, res, next) => {
