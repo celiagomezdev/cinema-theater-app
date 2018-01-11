@@ -16,7 +16,8 @@ const CustomerSchema = mongoose.Schema({
   },
   seatId: {
     type: Number,
-    default: 0
+    default: 0,
+    unique: true
   }
 })
 

@@ -20,11 +20,13 @@ const SeatSchema = mongoose.Schema({
   available: {
     type: Boolean,
     default: true,
+
     required: true
   },
   customerId: {
     type: Number,
-    default: 0
+    default: 0,
+    unique: true
   }
 })
 

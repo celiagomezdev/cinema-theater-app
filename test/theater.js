@@ -40,3 +40,29 @@ test('Create a new customer', async t => {
   t.is(res.body.funds, customer.funds)
   t.is(res.body.seat, customer.seat)
 })
+
+test('Create duplicated customer', async t => {
+  const customer = {
+    name: faker.name.findName(),
+    email: 'hjgk@hotmail.com',
+    funds: 50,
+    seatId: 15
+  }
+
+  const res = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  const dupCustomer = {
+    name: faker.name.findName(),
+    email: 'hjgk@hotmail.com',
+    funds: 50,
+    seatId: 32
+  }
+
+  const dupRes = await request(app)
+    .post('/theater/customer')
+    .send(dupCustomer)
+
+  t.is(dupRes.status, 500)
+})

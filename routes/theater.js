@@ -17,13 +17,35 @@ router.post('/customer', async (req, res, next) => {
     res.send(customer)
   } catch (err) {
     if (err.name === 'MongoError' && err.code === 11000) {
-      console.log('duplication error')
       return res.status(500).send({
         success: false,
-        message: 'A customer with this email is already registered.'
+        message: 'An user with this email is already registered.'
       })
     }
-    console.log(err.message)
+    console.log(err)
+    return res.status(500).send({ success: false, message: err.message })
+  }
+})
+
+//Seat routes
+
+router.get('/seat', async (req, res, next) => {
+  res.send(await SeatService.findAll())
+})
+
+router.post('/seat', async (req, res, next) => {
+  const newSeat = req.body
+  try {
+    const seat = await SeatService.add(newSeat)
+    res.send(seat)
+  } catch (err) {
+    if (err.name === 'MongoError' && err.code === 11000) {
+      return res.status(500).send({
+        success: false,
+        message: 'This seat is already registered.'
+      })
+    }
+    console.log(err)
     return res.status(500).send({ success: false, message: err.message })
   }
 })
