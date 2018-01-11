@@ -57,6 +57,7 @@ router.post('/customer/:id/booking', async (req, res, next) => {
   const updatedCustomer = await customer.save()
 
   seat.customerId = customer._id
+  seat.available = false
   const updatedSeat = await seat.save()
 
   res.send(updatedCustomer)
