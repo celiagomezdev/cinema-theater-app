@@ -9,7 +9,7 @@ async function add(customer) {
 }
 
 async function find(id) {
-  return CustomerModel.findOne({ _id: id })
+  return CustomerModel.findOne({ _id: id }).populate('seat')
 }
 
 module.exports = {

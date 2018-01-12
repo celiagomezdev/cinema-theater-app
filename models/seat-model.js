@@ -23,9 +23,9 @@ const SeatSchema = mongoose.Schema({
     default: true,
     required: true
   },
-  customerId: {
-    type: String,
-    default: ''
+  customer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Customer'
   }
 })
 

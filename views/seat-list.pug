@@ -6,7 +6,7 @@ block content
     if seats.length
       ul
         each seat, index in seats 
-          p #{index + 1}. <b>Number</b>: #{seat.number}. <b>Row</b>: #{seat.row}. <b>Customer Id</b>: #{seat.customerId}. <b>Available</b>: #{seat.available}. <b>Seat Id</b>: #{seat._id}
+          p #{index + 1}. <b>Number</b>: #{seat.number}. <b>Row</b>: #{seat.row}. <b>Customer</b>: #{seat.customer}. <b>Available</b>: #{seat.available}. <b>Seat Id</b>: #{seat._id}
     else
       p There are no seats yet :(
         
