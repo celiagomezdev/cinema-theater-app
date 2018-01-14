@@ -12,6 +12,10 @@ async function find(id) {
   return CustomerModel.findOne({ _id: id }).populate('seat')
 }
 
+async function del(id) {
+  return CustomerModel.remove({ _id: id })
+}
+
 module.exports = {
   findAll,
   find,

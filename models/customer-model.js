@@ -12,12 +12,14 @@ const CustomerSchema = mongoose.Schema({
   },
   funds: {
     type: Number,
-    default: 0
+    default: 20
   },
-  seat: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Seat'
-  }
+  seats: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Seat'
+    }
+  ]
 })
 
 const CustomerModel = mongoose.model('Customer', CustomerSchema)

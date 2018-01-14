@@ -27,36 +27,36 @@ router.post('/customer', async (req, res, next) => {
     res.send(customer)
   } catch (err) {
     if (err.name === 'MongoError' && err.code === 11000) {
-      return res.status(500).send({
+      return res.status(400).send({
         success: false,
         message: 'An user with this email is already registered.'
       })
     }
-    return res.status(500).send({ success: false, message: err.message })
+    return res.status(400).send({ success: false, message: err.message })
   }
 })
 
 router.post('/customer/:id/booking', async (req, res, next) => {
   const customer = await CustomerService.find(req.params.id)
-  const seat = await SeatService.find(req.body.seatId)
+  const seat = await SeatService.find(req.body.seat)
 
-  if (customer.seatId !== '') {
-    return res.status(404).send({
+  if (customer.seats.length > 0) {
+    return res.status(400).send({
       success: false,
       message: 'This customer already has a ticket.'
     })
-    if (seat.customerId !== '') {
-      return res.status(404).send({
+    if (seat.customer) {
+      return res.status(400).send({
         success: false,
         message: 'This seat is not available.'
       })
     }
   }
 
-  customer.seatId = seat._id
+  customer.seat = seat._id
   const updatedCustomer = await customer.save()
 
-  seat.customerId = customer._id
+  seat.customer = customer._id
   seat.available = false
   const updatedSeat = await seat.save()
 
@@ -91,12 +91,12 @@ router.post('/seat', async (req, res, next) => {
     res.send(seat)
   } catch (err) {
     if (err.name === 'MongoError' && err.code === 11000) {
-      return res.status(500).send({
+      return res.status(400).send({
         success: false,
         message: 'This seat is already registered.'
       })
     }
-    return res.status(500).send({ success: false, message: err.message })
+    return res.status(400).send({ success: false, message: err.message })
   }
 })
 
