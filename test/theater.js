@@ -3,9 +3,9 @@ import request from 'supertest'
 import app from '../app'
 import faker from 'faker'
 import mongoose from 'mongoose'
-import emptyDbScript from '../bin/empty-db-script'
+import emptyDb from '../util/empty-db-script'
 
-emptyDbScript.removeAll()
+emptyDb.removeAll()
 
 test('Get a list of customers', async t => {
   const customer = {
