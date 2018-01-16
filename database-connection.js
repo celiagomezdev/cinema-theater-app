@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const config = require('config')
 
 mongoose.Promise = global.Promise
 
-mongoose.connect('mongodb://localhost/cinema-theater-db', {
+mongoose.connect(config.get('mongoTestUrl'), {
   useMongoClient: true
 })

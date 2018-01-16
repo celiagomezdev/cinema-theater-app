@@ -1,0 +1,5 @@
+{
+  "mongoTestUrl": "mongodb://localhost/cinema-db-test",
+  "mongoDevUrl": "mongodb://localhost/cinema-db-dev",
+  "mongoProdUrl": "mongodb://localhost/cinema-db-prod"
+}

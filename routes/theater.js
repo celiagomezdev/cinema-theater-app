@@ -60,7 +60,7 @@ router.post('/customer/:id/booking', async (req, res, next) => {
   seat.available = false
   const updatedSeat = await seat.save()
 
-  res.send(updatedCustomer)
+  return res.send(updatedCustomer)
 })
 
 //Seat routes
