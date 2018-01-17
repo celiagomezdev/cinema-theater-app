@@ -26,14 +26,18 @@ router.post('/customer', async (req, res, next) => {
     const customer = await CustomerService.add(newCustomer)
     res.send(customer)
   } catch (err) {
-    if (err.name === 'MongoError' && err.code === 11000) {
-      return res.status(400).send({
-        success: false,
-        message: 'An user with this email is already registered.'
-      })
-    }
-    return res.status(400).send({ success: false, message: err.message })
+    return next(err)
   }
+  //   res.send(customer)
+  // } catch (err) {
+  //   if (err.name === 'MongoError' && err.code === 11000) {
+  //     return res.status(400).send({
+  //       success: false,
+  //       message: 'An user with this email is already registered.'
+  //     })
+  //   }
+  //   return res.status(400).send({ success: false, message: err.message })
+  // }
 })
 
 router.post('/customer/:id/booking', async (req, res, next) => {
