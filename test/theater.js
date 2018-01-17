@@ -160,8 +160,6 @@ test('Make a booking', async t => {
 
   const customerId = customerRes.body._id
   const seatId = { seat: seatRes.body._id }
-  console.log(customerId)
-  console.log(seatId)
 
   const bookingRes = await request(app)
     .post(`/theater/customer/${customerId}/booking`)
@@ -186,6 +184,7 @@ test('Avoid making a booking if a ticket is reserved', async t => {
     .post('/theater/seat')
     .send(seat)
 
+  console.log(seatRes.body)
   t.is(seatRes.status, 200)
 
   const customer = {
@@ -196,12 +195,13 @@ test('Avoid making a booking if a ticket is reserved', async t => {
   const customerRes = await request(app)
     .post('/theater/customer')
     .send(customer)
+  console.log(customerRes.body)
 
   t.is(customerRes.status, 200)
 
   const customerId = customerRes.body._id
   const seatId = { seat: seatRes.body._id }
-
+  console.log(customerId)
   console.log(seatId)
 
   const bookingRes = await request(app)
