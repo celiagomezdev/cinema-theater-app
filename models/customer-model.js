@@ -1,14 +1,24 @@
 const mongoose = require('mongoose')
+const validate = require('mongoose-validator')
+
+const emailValidator = [
+  validate({
+    validator: 'isEmail',
+    message: 'Invalid Email address. Please try again'
+  })
+]
 
 const CustomerSchema = mongoose.Schema({
   name: {
     type: String,
+    min: [3, 'The name should have at least 3 characters.'],
     required: true
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    validate: emailValidator
   },
   funds: {
     type: Number,

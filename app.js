@@ -15,7 +15,8 @@ const theater = require('./routes/theater')
 
 app.use('/theater', theater)
 app.use(logErrors)
-app.use(handleDatabaseError)
+app.use(databaseErrorHandler)
+app.use(validationErrorHandler)
 app.use(errorHandler)
 
 app.get('/', async (req, res, next) => {
@@ -24,15 +25,23 @@ app.get('/', async (req, res, next) => {
 
 //Express Error Handlers
 function logErrors(err, req, res, next) {
-  console.error(`Error: ${err.message}`)
+  console.error(`Error: ${err.name}`)
   next(err)
 }
 
-function handleDatabaseError(err, req, res, next) {
+function databaseErrorHandler(err, req, res, next) {
   if (err.name === 'MongoError' && err.code === 11000) {
-    return res.status(500).send({
+    return res.status(409).send({
       message: 'This email has already been registered 😭. Please try another.'
     })
+  } else {
+    next(err)
+  }
+}
+
+function validationErrorHandler(err, req, res, next) {
+  if (err.name === 'ValidationError') {
+    return res.status(422).send({ message: err.message })
   } else {
     next(err)
   }

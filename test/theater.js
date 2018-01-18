@@ -7,22 +7,24 @@ import emptyDb from '../util/empty-db-script'
 
 emptyDb.removeAll()
 
-// test('Get a list of customers', async t => {
-//   const customer = {
-//     name: faker.name.findName(),
-//     email: faker.internet.email()
-//   }
+//Customer tests
 
-//   const creation = await request(app)
-//     .post('/theater/customer')
-//     .send(customer)
+test('Get a list of customers', async t => {
+  const customer = {
+    name: faker.name.findName(),
+    email: faker.internet.email()
+  }
 
-//   const res = await request(app).get('/theater/customer')
+  const creation = await request(app)
+    .post('/theater/customer')
+    .send(customer)
 
-//   t.is(res.status, 200)
-//   t.true(Array.isArray(res.body), 'Body should be an array')
-//   t.true(res.body.length > 0)
-// })
+  const res = await request(app).get('/theater/customer')
+
+  t.is(res.status, 200)
+  t.true(Array.isArray(res.body), 'Body should be an array')
+  t.true(res.body.length > 0)
+})
 
 test('Create a new customer', async t => {
   const customer = {
@@ -39,7 +41,33 @@ test('Create a new customer', async t => {
   t.is(res.body.email, customer.email)
 })
 
-test('Avoid creating duplicated customers', async t => {
+test('Attempt to create a new customer with an empty field', async t => {
+  const customer = {
+    name: '',
+    email: ''
+  }
+
+  const res = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  t.is(res.status, 422)
+})
+
+test('Attempt to create a new customer with an invalid field', async t => {
+  const customer = {
+    name: 'Paquita Salas',
+    email: 'hola@'
+  }
+
+  const res = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  t.is(res.status, 422)
+})
+
+test('Attempt to create duplicated customers', async t => {
   const customer = {
     name: faker.name.findName(),
     email: 'hjgk@hotmail.com'
@@ -58,77 +86,79 @@ test('Avoid creating duplicated customers', async t => {
     .post('/theater/customer')
     .send(dupCustomer)
 
-  t.is(dupRes.status, 500)
+  t.is(dupRes.status, 409)
 })
 
 //Seat tests
 
-// test('Get a list of seats', async t => {
-//   const seat = {
-//     number: faker.random.number(),
-//     row: faker.random.number(),
-//     movie: faker.random.word(),
-//     price: 8,
-//     available: false
-//   }
+test('Get a list of seats', async t => {
+  const seat = {
+    number: faker.random.number(),
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: false
+  }
 
-//   const creation = await request(app)
-//     .post('/theater/seat')
-//     .send(seat)
+  const creation = await request(app)
+    .post('/theater/seat')
+    .send(seat)
 
-//   const res = await request(app).get('/theater/seat')
+  const res = await request(app).get('/theater/seat')
 
-//   t.is(res.status, 200)
-//   t.true(Array.isArray(res.body), 'Body should be an array')
-//   t.true(res.body.length > 0)
-// })
+  t.is(res.status, 200)
+  t.true(Array.isArray(res.body), 'Body should be an array')
+  t.true(res.body.length > 0)
+})
 
-// test('Create a new seat', async t => {
-//   const seat = {
-//     number: faker.random.number(),
-//     row: faker.random.number(),
-//     movie: faker.random.word(),
-//     price: 8,
-//     available: true
-//   }
+test('Create a new seat', async t => {
+  const seat = {
+    number: faker.random.number(),
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true
+  }
 
-//   const res = await request(app)
-//     .post('/theater/seat')
-//     .send(seat)
+  const res = await request(app)
+    .post('/theater/seat')
+    .send(seat)
 
-//   t.is(res.status, 200)
-//   t.is(res.body.number, seat.number)
-//   t.is(res.body.row, seat.row)
-//   t.is(res.body.movie, seat.movie)
-// })
+  t.is(res.status, 200)
+  t.is(res.body.number, seat.number)
+  t.is(res.body.row, seat.row)
+  t.is(res.body.movie, seat.movie)
+})
 
-// test('Avoid creating duplicated seats', async t => {
-//   const seat = {
-//     number: 45,
-//     row: faker.random.number(),
-//     movie: faker.random.word(),
-//     price: 8,
-//     available: true
-//   }
+test('Attempt to create duplicated seats', async t => {
+  const seat = {
+    number: 45,
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true
+  }
 
-//   const res = await request(app)
-//     .post('/theater/seat')
-//     .send(seat)
+  const res = await request(app)
+    .post('/theater/seat')
+    .send(seat)
 
-//   const dupSeat = {
-//     number: 45,
-//     row: faker.random.number(),
-//     movie: faker.random.word(),
-//     price: 8,
-//     available: true
-//   }
+  const dupSeat = {
+    number: 45,
+    row: faker.random.number(),
+    movie: faker.random.word(),
+    price: 8,
+    available: true
+  }
 
-//   const dupRes = await request(app)
-//     .post('/theater/seat')
-//     .send(dupSeat)
+  const dupRes = await request(app)
+    .post('/theater/seat')
+    .send(dupSeat)
 
-//   t.is(dupRes.status, 400)
-// })
+  t.is(dupRes.status, 409)
+})
+
+//Booking tests
 
 // test('Make a booking', async t => {
 //   t.plan(3)
