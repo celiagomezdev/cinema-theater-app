@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
+const validate = require('mongoose-validator')
 
 const SeatSchema = mongoose.Schema({
   number: {
     type: Number,
-    required: true,
-    unique: true
+    enum: [1 - 10],
+    required: true
   },
   row: {
     type: Number,
+    enum: [1 - 20],
     required: true
   },
   movie: {
