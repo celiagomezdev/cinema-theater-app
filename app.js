@@ -14,27 +14,34 @@ app.set('view engine', 'pug')
 const theater = require('./routes/theater')
 
 app.use('/theater', theater)
-app.use(handleError)
+app.use(logErrors)
+app.use(handleDatabaseError)
+app.use(errorHandler)
 
 app.get('/', async (req, res, next) => {
   res.render('index')
 })
 
 //Express Error Handlers
-function handleError(err, req, res, next) {
+function logErrors(err, req, res, next) {
   console.error(`Error: ${err.message}`)
   next(err)
 }
 
 function handleDatabaseError(err, req, res, next) {
-  if (err.name === MongoError && err.code === 11000) {
+  if (err.name === 'MongoError' && err.code === 11000) {
     return res.status(500).send({
-      message: 'Duplicated entry.'
+      message: 'This email has already been registered 😭. Please try another.'
     })
+  } else {
+    next(err)
   }
 }
 
-module.exports = app
+function errorHandler(err, req, res, next) {
+  return res.status(500).send({
+    message: `I'm sorry, there was an error. Try again. 👻`
+  })
+}
 
-// console.log('Error: ' + err.message)
-//     return res.status(500).send({ type: 'MongoError', message: err.message })
+module.exports = app
