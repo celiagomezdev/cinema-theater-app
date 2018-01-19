@@ -25,7 +25,7 @@ app.get('/', async (req, res, next) => {
 
 //Express Error Handlers
 function logErrors(err, req, res, next) {
-  console.error(`Error: ${err.name}`)
+  console.error(`Error name: ${err.name}, message: ${err.message}.`)
   next(err)
 }
 

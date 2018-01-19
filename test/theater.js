@@ -3,19 +3,17 @@ import request from 'supertest'
 import app from '../app'
 import faker from 'faker'
 import mongoose from 'mongoose'
-import emptyDb from '../util/empty-db-script'
-import rangeFrom1to from '../util/range'
+import util from '../util'
 
 //Helpers
-emptyDb.removeAll()
-const array10 = rangeFrom1to(10)
-const array20 = rangeFrom1to(20)
+util.emptyDb()
 
 //Customer tests
 
 test('Get a list of customers', async t => {
   const customer = {
-    name: faker.name.findName(),
+    firstName: faker.name.findName(),
+    lastName: faker.name.findName(),
     email: faker.internet.email()
   }
 
@@ -32,7 +30,8 @@ test('Get a list of customers', async t => {
 
 test('Create a new customer', async t => {
   const customer = {
-    name: 'Marina Romero',
+    firstName: faker.name.findName(),
+    lastName: faker.name.findName(),
     email: faker.internet.email()
   }
 
@@ -47,7 +46,8 @@ test('Create a new customer', async t => {
 
 test('Attempt to create a new customer with an empty field', async t => {
   const customer = {
-    name: '',
+    firstName: '',
+    lastName: faker.name.findName(),
     email: ''
   }
 
@@ -60,7 +60,8 @@ test('Attempt to create a new customer with an empty field', async t => {
 
 test('Attempt to create a new customer with an invalid field', async t => {
   const customer = {
-    name: 'Paquita Salas',
+    firstName: 'Paquita',
+    lastName: 'Salas',
     email: 'hola@'
   }
 
@@ -73,7 +74,8 @@ test('Attempt to create a new customer with an invalid field', async t => {
 
 test('Attempt to create duplicated customers', async t => {
   const customer = {
-    name: faker.name.findName(),
+    firstName: faker.name.findName(),
+    lastName: faker.name.findName(),
     email: 'hjgk@hotmail.com'
   }
 
@@ -82,7 +84,8 @@ test('Attempt to create duplicated customers', async t => {
     .send(customer)
 
   const dupCustomer = {
-    name: faker.name.findName(),
+    firstName: faker.name.findName(),
+    lastName: faker.name.findName(),
     email: 'hjgk@hotmail.com'
   }
 
@@ -93,12 +96,12 @@ test('Attempt to create duplicated customers', async t => {
   t.is(dupRes.status, 409)
 })
 
-//Seat tests
+// //Seat tests
 
 test('Get a list of seats', async t => {
   const seat = {
-    number: faker.helpers.randomize(array10),
-    row: faker.helpers.randomize(array10),
+    number: 1,
+    row: 12,
     movie: faker.random.word(),
     price: 8,
     available: true
@@ -117,8 +120,8 @@ test('Get a list of seats', async t => {
 
 test('Create a new seat', async t => {
   const seat = {
-    number: faker.helpers.randomize(array10),
-    row: faker.helpers.randomize(array10),
+    number: 1,
+    row: 20,
     movie: faker.random.word(),
     price: 8,
     available: true
@@ -162,6 +165,40 @@ test('Attempt to create duplicated seats', async t => {
   t.is(dupRes.status, 409)
 })
 
+test('Attempt to create a new seat with an empty field', async t => {
+  const seat = {
+    number: null,
+    row: 10,
+    movie: faker.random.word(),
+    price: 8,
+    available: true
+  }
+
+  const res = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  t.is(res.status, 422)
+})
+
+test('Attempt to create a new seat with an invalid field', async t => {
+  const seat = {
+    number: 30,
+    row: 10,
+    movie: faker.random.word(),
+    price: 8,
+    available: true
+  }
+
+  const res = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  console.log(res.body)
+
+  t.is(res.status, 422)
+})
+
 // Booking tests
 
 test('Make a booking', async t => {
@@ -182,7 +219,8 @@ test('Make a booking', async t => {
   t.is(seatRes.status, 200)
 
   const customer = {
-    name: 'María Pérez',
+    firstName: faker.name.findName(),
+    lastName: faker.name.findName(),
     email: faker.internet.email()
   }
 

@@ -4,12 +4,14 @@ const validate = require('mongoose-validator')
 const SeatSchema = mongoose.Schema({
   number: {
     type: Number,
-    enum: [1 - 10],
+    min: 1,
+    max: 10,
     required: true
   },
   row: {
     type: Number,
-    enum: [1 - 20],
+    min: 1,
+    max: 20,
     required: true
   },
   movie: {

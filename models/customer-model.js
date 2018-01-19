@@ -9,9 +9,14 @@ const emailValidator = [
 ]
 
 const CustomerSchema = mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    min: [3, 'The name should have at least 3 characters.'],
+    min: [2, 'The First Name field should have at least 2 characters.'],
+    required: true
+  },
+  lastName: {
+    type: String,
+    min: [2, 'The Last Name field should have at least 2 characters.'],
     required: true
   },
   email: {
