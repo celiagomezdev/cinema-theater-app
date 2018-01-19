@@ -39,15 +39,16 @@ router.post('/customer/:id/booking', async (req, res, next) => {
       success: false,
       message: 'This customer already has a ticket.'
     })
-    if (seat.customer) {
-      return res.status(400).send({
-        success: false,
-        message: 'This seat is not available.'
-      })
-    }
   }
 
-  customer.seat = seat._id
+  if (seat.customer !== undefined) {
+    return res.status(400).send({
+      success: false,
+      message: 'This seat is not available.'
+    })
+  }
+
+  customer.seats.push(seat._id)
   const updatedCustomer = await customer.save()
 
   seat.customer = customer._id

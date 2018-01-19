@@ -204,8 +204,8 @@ test('Make a booking', async t => {
   t.is(seatRes.status, 200)
 
   const customer = {
-    firstName: faker.name.findName(),
-    lastName: faker.name.findName(),
+    firstName: 'Sara',
+    lastName: 'Baras',
     email: faker.internet.email()
   }
 
@@ -225,48 +225,45 @@ test('Make a booking', async t => {
   t.is(bookingRes.status, 200)
 })
 
-// test('Attempt to book a reserved seat', async t => {
-//   t.plan(3)
+test('Attempt to book a reserved seat', async t => {
+  t.plan(3)
 
-//   const seat = {
-//     number: 20,
-//     row: faker.random.number(),
-//     movie: 'La la land',
-//     price: 8,
-//     available: true,
-//     customer: new mongoose.Types.ObjectId('5962a5f37bde228394da6f72')
-//   }
+  const seat = {
+    number: 8,
+    row: 17,
+    movie: 'La la land',
+    price: 8,
+    available: true,
+    customer: new mongoose.Types.ObjectId('5962a5f37bde228394da6f72')
+  }
 
-//   const seatRes = await request(app)
-//     .post('/theater/seat')
-//     .send(seat)
+  const seatRes = await request(app)
+    .post('/theater/seat')
+    .send(seat)
 
-//   console.log(seatRes.body)
-//   t.is(seatRes.status, 200)
+  t.is(seatRes.status, 200)
 
-//   const customer = {
-//     name: 'Ramona López',
-//     email: faker.internet.email()
-//   }
+  const customer = {
+    firstName: 'Ramona',
+    lastName: 'López',
+    email: faker.internet.email()
+  }
 
-//   const customerRes = await request(app)
-//     .post('/theater/customer')
-//     .send(customer)
-//   console.log(customerRes.body)
+  const customerRes = await request(app)
+    .post('/theater/customer')
+    .send(customer)
 
-//   t.is(customerRes.status, 200)
+  t.is(customerRes.status, 200)
 
-//   const customerId = customerRes.body._id
-//   const seatId = { seat: seatRes.body._id }
-//   console.log(customerId)
-//   console.log(seatId)
+  const customerId = customerRes.body._id
+  const seatId = { seat: seatRes.body._id }
 
-//   const bookingRes = await request(app)
-//     .post(`/theater/customer/${customerId}/booking`)
-//     .send(seatId)
+  const bookingRes = await request(app)
+    .post(`/theater/customer/${customerId}/booking`)
+    .send(seatId)
 
-//   t.is(bookingRes.status, 400)
-// })
+  t.is(bookingRes.status, 400)
+})
 
 // test('Attempt to book an nonexistent seat', async t => {
 //   t.plan(3)
