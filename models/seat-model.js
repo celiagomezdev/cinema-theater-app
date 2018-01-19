@@ -6,13 +6,15 @@ const SeatSchema = mongoose.Schema({
     type: Number,
     min: 1,
     max: 10,
-    required: true
+    required: true,
+    unique: false
   },
   row: {
     type: Number,
     min: 1,
     max: 20,
-    required: true
+    required: true,
+    unique: false
   },
   movie: {
     type: String,
@@ -32,6 +34,8 @@ const SeatSchema = mongoose.Schema({
     ref: 'Customer'
   }
 })
+
+SeatSchema.index({ number: 1, row: 1 }, { unique: true })
 
 const SeatModel = mongoose.model('Seat', SeatSchema)
 

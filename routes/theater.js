@@ -68,6 +68,15 @@ router.get('/seat/detail/:id', async (req, res, next) => {
   res.render('seat-detail', { seat })
 })
 
+router.get('/seat/detail/:id/json', async (req, res, next) => {
+  try {
+    const seat = await SeatService.find(req.params.id)
+    res.send(seat)
+  } catch (err) {
+    return next(err)
+  }
+})
+
 router.get('/seat/all', async (req, res, next) => {
   const seats = await SeatService.findAll()
   res.render('seat-list', { seats })
