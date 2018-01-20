@@ -13,7 +13,7 @@ async function find(id) {
 }
 
 async function findAvailableSeats() {
-  return SeatModel.find({ available: true })
+  return SeatModel.find({ customer: undefined })
 }
 
 module.exports = {
