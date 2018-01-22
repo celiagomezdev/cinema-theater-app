@@ -210,80 +210,77 @@ test('Make a booking', async t => {
   t.is(customerRes.status, 200)
 
   const customerId = customerRes.body._id
-  const seatId = { seat: seatRes.body._id }
+  const seatBodyReq = { seatId: seatRes.body._id }
 
   const bookingRes = await request(app)
     .post(`/theater/customer/${customerId}/booking`)
-    .send(seatId)
+    .send(seatBodyReq)
+
+  console.log(bookingRes.body)
 
   t.is(bookingRes.status, 200)
 })
 
-test('Attempt to book a reserved seat', async t => {
-  t.plan(3)
-
-  const seat = {
-    number: 8,
-    row: 17,
-    movie: 'La la land',
-    price: 8,
-    customer: new mongoose.Types.ObjectId('5962a5f37bde228394da6f72')
-  }
-
-  const seatRes = await request(app)
-    .post('/theater/seat')
-    .send(seat)
-
-  t.is(seatRes.status, 200)
-
-  const customer = {
-    firstName: 'Ramona',
-    lastName: 'López',
-    email: faker.internet.email()
-  }
-
-  const customerRes = await request(app)
-    .post('/theater/customer')
-    .send(customer)
-
-  t.is(customerRes.status, 200)
-
-  const customerId = customerRes.body._id
-  const seatId = { seat: seatRes.body._id }
-
-  const bookingRes = await request(app)
-    .post(`/theater/customer/${customerId}/booking`)
-    .send(seatId)
-
-  t.is(bookingRes.status, 409)
-})
-
-// test('Attempt to book an nonexistent seat', async t => {
+// test('Attempt to book a reserved seat', async t => {
 //   t.plan(3)
 
-//   unexSeatId = new mongoose.Types.ObjectId('5962a5f37bde228399da6f72')
+//   const seat = {
+//     number: 8,
+//     row: 17,
+//     movie: 'La la land',
+//     price: 8,
+//     customer: new mongoose.Types.ObjectId('5962a5f37bde228394da6f72')
+//   }
 
 //   const seatRes = await request(app)
 //     .post('/theater/seat')
 //     .send(seat)
 
-//   console.log(seatRes.body)
 //   t.is(seatRes.status, 200)
 
 //   const customer = {
-//     name: 'Ramona López',
+//     firstName: 'Ramona',
+//     lastName: 'López',
 //     email: faker.internet.email()
 //   }
 
 //   const customerRes = await request(app)
 //     .post('/theater/customer')
 //     .send(customer)
+
+//   t.is(customerRes.status, 200)
+
+//   const customerId = customerRes.body._id
+//   const seaseatBodyReq = { seatId: seatRes.body._id }
+
+//   const bookingRes = await request(app)
+//     .post(`/theater/customer/${customerId}/booking`)
+//     .send(seatBodyReq)
+
+//   t.is(bookingRes.status, 409)
+// })
+
+// test('Attempt to book an nonexistent seat', async t => {
+//   t.plan(3)
+
+//   unexSeatId = new mongoose.Types.ObjectId('5962a5f37bde228399hy6f72')
+
+//   const customer = {
+//     firstName: 'Ramona',
+//     lastName: 'López',
+//     email: faker.internet.email()
+//   }
+
+//   const customerRes = await request(app)
+//     .post('/theater/customer')
+//     .send(customer)
+
 //   console.log(customerRes.body)
 
 //   t.is(customerRes.status, 200)
 
 //   const customerId = customerRes.body._id
-//   const seatId = { seat: seatRes.body._id }
+//   const seatId = { seat: unexSeatId }
 //   console.log(customerId)
 //   console.log(seatId)
 
@@ -291,5 +288,5 @@ test('Attempt to book a reserved seat', async t => {
 //     .post(`/theater/customer/${customerId}/booking`)
 //     .send(seatId)
 
-//   t.is(bookingRes.status, 400)
+//   t.is(bookingRes.status, 409)
 // })

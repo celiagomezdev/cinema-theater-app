@@ -28,13 +28,7 @@ const CustomerSchema = mongoose.Schema({
   funds: {
     type: Number,
     default: 20
-  },
-  seats: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Seat'
-    }
-  ]
+  }
 })
 
 const CustomerModel = mongoose.model('Customer', CustomerSchema)

@@ -16,9 +16,14 @@ async function findAvailableSeats() {
   return SeatModel.find({ customer: undefined })
 }
 
+async function findSeatBookedBy(id) {
+  return SeatModel.findOne({ customer: id })
+}
+
 module.exports = {
   findAll,
   find,
   findAvailableSeats,
+  findSeatBookedBy,
   add
 }
