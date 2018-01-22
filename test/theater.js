@@ -216,8 +216,6 @@ test('Make a booking', async t => {
     .post(`/theater/customer/${customerId}/booking`)
     .send(seatBodyReq)
 
-  console.log(bookingRes.body)
-
   t.is(bookingRes.status, 200)
 })
 
