@@ -24,11 +24,6 @@ const SeatSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  available: {
-    type: Boolean,
-    default: true,
-    required: true
-  },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Customer'

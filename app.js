@@ -17,6 +17,7 @@ app.use('/theater', theater)
 app.use(logErrors)
 app.use(databaseErrorHandler)
 app.use(validationErrorHandler)
+app.use(bookedSeatHandler)
 app.use(errorHandler)
 
 app.get('/', async (req, res, next) => {
@@ -41,15 +42,31 @@ function databaseErrorHandler(err, req, res, next) {
 
 function validationErrorHandler(err, req, res, next) {
   if (err.name === 'ValidationError') {
-    return res.status(422).send({ message: err.message })
+    return res.status(422).send({
+      message: err.message
+    })
   } else {
     next(err)
   }
 }
 
+function bookedSeatHandler(err, req, res, next) {
+  if (customer.seats.length > 0) {
+    return res.status(409).send({
+      message: 'This customer already has a ticket.'
+    })
+  }
+
+  if (seat.customer !== undefined) {
+    return res.status(409).send({
+      message: 'This seat is not available. Please try another.'
+    })
+  }
+}
+
 function errorHandler(err, req, res, next) {
   return res.status(500).send({
-    message: `I'm sorry, there was an error. Try again. 👻`
+    message: `I'm sorry, there was an error. Try again. 🙏`
   })
 }
 

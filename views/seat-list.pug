@@ -6,7 +6,14 @@ block content
     if seats.length
       ul
         each seat, index in seats 
-          p #{index + 1}. <b>Number</b>: #{seat.number}. <b>Row</b>: #{seat.row}. <b>Customer</b>: #{seat.customer}. <b>Available</b>: #{seat.available}. <b>Seat Id</b>: #{seat._id}
+          - var availability = ''
+          if seat.customer 
+            - availability = `Seat not available. Booked by customer with Id: ${seat.customer}`
+          else
+            - availability = 'Available'
+          p #{index + 1}. <b>Number</b>: #{seat.number}. <b>Row</b>: #{seat.row}. <b>Seat Id</b>: #{seat._id}. <b>#{availability}</b>
+          
+      
     else
       p There are no seats yet :(
         
