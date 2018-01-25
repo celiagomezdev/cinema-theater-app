@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import util from '../util'
 
 //Helpers
+
 util.emptyDb()
 
 //Customer tests
@@ -286,7 +287,8 @@ test('Attempt to book a reserved seat', async t => {
 // test('Attempt to book an nonexistent seat', async t => {
 //   t.plan(3)
 
-//   const unexSeatId = '5962a5f37bde228399hy6f72'
+//   const unexSeatId = mongoose.Types.ObjectId()
+//   console.log(`generated object id ${unexSeatId}`)
 
 //   const customer = {
 //     firstName: 'Ramona',
