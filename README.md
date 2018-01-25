@@ -1,8 +1,9 @@
 <h1 align="center">Cinema-Theater-App</h1>
 
-### Application for buying tickets for a cinema theater 📽
+#### Application for buying tickets for a cinema theater 📽
 
-**Information**: Backend application with an external REST API for the clients.
+Backend application with an external REST API for the clients.
+
 **Technology used**: Node.js, Express.js, MongoDB and mongoose.js.
 
 ## Getting started
