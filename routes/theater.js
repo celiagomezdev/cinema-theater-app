@@ -30,12 +30,21 @@ router.post('/customer', async (req, res, next) => {
   }
 })
 
-router.post('/customer/:id/booking', async (req, res, next) => {
-  const customer = await CustomerService.find(req.params.id)
+router.post('/booking', async (req, res, next) => {
+  const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
-  await SeatService.checkSeatStatus(customer)
-  await SeatService.checkCustomerStatus(seat)
+  if (await hasSeat(customer)) {
+    return res.status(409).send({
+      message: 'This customer already has a booked seat.'
+    })
+  }
+
+  if (await isBooked(seat)) {
+    return res.status(409).send({
+      message: 'This seat is not available.'
+    })
+  }
 
   try {
     seat.customer = customer._id
@@ -85,5 +94,22 @@ router.post('/seat', async (req, res, next) => {
     next(err)
   }
 })
+
+//Helper methods
+
+async function hasSeat(customer) {
+  const seatBookedBy = await SeatService.findSeatBookedBy(customer._id)
+  if (seatBookedBy != undefined || seatBookedBy != null) {
+    return true
+  }
+}
+
+function isBooked(seat) {
+  const seatCustomer = seat.customer
+  if (seatCustomer != undefined || seatCustomer != null) {
+    console.log(`Seat customer: ${seatCustomer}`)
+    return true
+  }
+}
 
 module.exports = router
