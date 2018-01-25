@@ -179,7 +179,7 @@ util.emptyDb()
 //   t.is(dupRes.status, 409)
 // })
 
-// // Booking tests
+// Booking tests
 
 test('Make a booking', async t => {
   t.plan(3)
@@ -226,7 +226,7 @@ test('Make a booking', async t => {
 //     row: 17,
 //     movie: 'La la land',
 //     price: 8,
-//     customer: new mongoose.Types.ObjectId('5962a5f37bde228394d88f72')
+//     customer: new mongoose.Schema.Types.ObjectId('5962a5f37bde228394d88f72')
 //   }
 
 //   const seatRes = await request(app)
@@ -234,7 +234,6 @@ test('Make a booking', async t => {
 //     .send(seat)
 
 //   t.is(seatRes.status, 200)
-//   console.log(`Seat test res: ${seatRes.body}`)
 
 //   const customer = {
 //     firstName: 'Ramona',
@@ -246,25 +245,27 @@ test('Make a booking', async t => {
 //     .post('/theater/customer')
 //     .send(customer)
 
+//   console.log(`Customer body from test: ${JSON.stringify(customerRes.body)}`)
+//   console.log(`Seat body from test: ${JSON.stringify(seatRes.body)}`)
+
 //   t.is(customerRes.status, 200)
 
-//   const customerId = customerRes.body._id
-//   const seatBodyReq = { seatId: seatRes.body._id }
-//   console.log(customerId)
-//   console.log(seatBodyReq)
+//   const bodyReq = { userId: customerRes.body._id, seatId: seatRes.body._id }
+
+//   console.log(`userId sent from test: ${customerRes.body._id}`)
+//   console.log(`seatId sent from test: ${seatRes.body._id}`)
 
 //   const bookingRes = await request(app)
-//     .post(`/theater/customer/${customerId}/booking`)
-//     .send(seatBodyReq)
+//     .post(`/theater/booking`)
+//     .send(bodyReq)
 
-//   console.log(bookingRes.body)
 //   t.is(bookingRes.status, 409)
 // })
 
 // test('Attempt to book an nonexistent seat', async t => {
 //   t.plan(3)
 
-//   unexSeatId = new mongoose.Types.ObjectId('5962a5f37bde228399hy6f72')
+//   const unexSeatId = '5962a5f37bde228399hy6f72'
 
 //   const customer = {
 //     firstName: 'Ramona',
@@ -276,18 +277,13 @@ test('Make a booking', async t => {
 //     .post('/theater/customer')
 //     .send(customer)
 
-//   console.log(customerRes.body)
-
 //   t.is(customerRes.status, 200)
 
-//   const customerId = customerRes.body._id
-//   const seatId = { seat: unexSeatId }
-//   console.log(customerId)
-//   console.log(seatId)
+//   const bodyReq = { userId: customerRes.body._id, seatId: unexSeatId }
 
 //   const bookingRes = await request(app)
-//     .post(`/theater/customer/${customerId}/booking`)
-//     .send(seatId)
+//     .post(`/theater/booking`)
+//     .send(bodyReq)
 
 //   t.is(bookingRes.status, 409)
 // })

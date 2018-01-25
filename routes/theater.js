@@ -31,8 +31,12 @@ router.post('/customer', async (req, res, next) => {
 })
 
 router.post('/booking', async (req, res, next) => {
+  console.log(`Received userId in routes: ${req.body.userId}`)
+  console.log(`Received seatId in routes: ${req.body.seatId}`)
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
+  console.log(`Customer body from routes: ${customer.body}`)
+  console.log(`Seat body from routes: ${seat.body}`)
 
   if (await hasSeat(customer)) {
     return res.status(409).send({

@@ -48,7 +48,7 @@ To get the Node server running locally:
 
 * `views/`- The view files of our application using the pug template.
 
-* `ìndex.html` - This html file will define our main view structure to be afterwards modelated by our different pug views. Here we will also use the axios script that will allow us to make real post and get requests to our database from the console.
+* `ìndex.html` - This html file will define our main view structure to be afterwards modelated by our different pug views. Here we will also implement the axios script that will allow us to make real time post and get requests from the google chrome console.
 
 ## Error Handling
 
@@ -58,17 +58,13 @@ In the file `app.js` we define our error-handling middleware for handling any po
 
 We will consider different types of error:
 
-* `409` -
+* [409](https://httpstatuses.com/409) - When the user creates an already existing user or tries to book a seat that is not available.
 
-* `422` -
+* [422](https://httpstatuses.com/422) - When the user introduces empty or non valid data in the request.
 
-* `500` -
+* [500](https://httpstatuses.com/500) - When any other internal error ocurrs.
 
 ## Usage
-
-We can use Axios or Postman to make our different get or post requests to communicate with our database.
-
-Example of the usage of axios in the chrome console:
 
 ### Get list of customers
 
@@ -93,16 +89,16 @@ Example:
 { firstName: 'Joan', lastName: 'López', email: 'joanlopez567@gmail.com' }
 ```
 
-`firstName`, `lastName` and `email` are required fields. If any of the entries are empty or not valid, the user will receive a 422 response with the correct error message.
+`firstName`, `lastName` and `email` are required fields. If any of the entries are empty or not valid, the user will receive a `422` response with the correct error message.
 
-If there is already an user in the database with the same email, the user will receive a 409 response with the informative error.
+If there is already an user in the database with the same email, the user will receive a `409` response with the informative error.
 
 ### Show details of a customer
 
 `GET`
 
 ```
-/theater/customer/detail/THE_USER_ID
+/theater/customer/detail/**THE_USER_ID**
 ```
 
 ### Get list of all seats
@@ -126,7 +122,7 @@ If there is already an user in the database with the same email, the user will r
 `GET`
 
 ```
-/theater/seat/detail/THE_SEAT_ID
+/theater/seat/detail/**THE_SEAT_ID**
 ```
 
 ### Make a reservation
@@ -138,17 +134,17 @@ If there is already an user in the database with the same email, the user will r
 ```
 
 ```
-body: { userId: _THE_USER_ID_, seatId: _THE_SEAT_ID_}
+body: { userId: **THE_USER_ID**, seatId: **THE_SEAT_ID**}
 ```
 
 `userId` and `seatId` are required fields.
 
-If the customer attemt to book a seat, but he/she already has a seat booked or that seat has been booked for any other customer, there will be a 409 response showing the correct error message to the user.
+If the customer attemt to book a seat, but he/she already has a seat booked or that seat has been booked for any other customer, there will be a `409` response showing the correct error message to the user.
 
 Once the request is made, and if no error is encountered, it will reserve this seat to the sepecified user.
 
 ## Helpful Software
 
-* I recommend to use Robomongo (Now called Robo 3T) to manage easily your MongoDB database. Download it [here](https://robomongo.org/).
+* I recommend using [Robomongo](https://robomongo.org/) (now called Robo 3T) to manage easily your MongoDB database.
 
-* It's also recommended to use Axios and Postman to try out and make the get or post requests.
+* You can use [Axios](https://github.com/axios/axios) or [Postman](https://www.getpostman.com/) to perform the get and post requests.
