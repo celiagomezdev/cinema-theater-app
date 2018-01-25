@@ -11,7 +11,10 @@ Backend application with an external REST API for the clients.
 To get the Node server running locally:
 
 * Clone this repo
-* Set up MongoDB locally. [Link](https://www.mongodb.com/download-center?jmp=nav#community) to get started (Click on 'Community Server' Tab to download) > If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
+* Set up MongoDB locally. [Link](https://www.mongodb.com/download-center?jmp=nav#community) to get started (Click on 'Community Server' Tab to download)
+
+> If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
+
 * `npm install` to install all the dependencies
 * `node index.js` to start the local server (You will see logged in your console 'Server listening')
 
