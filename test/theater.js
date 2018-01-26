@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import util from '../util'
 
 //Helpers
+
 util.emptyDb()
 
 //Customer tests
@@ -209,25 +210,23 @@ test('Make a booking', async t => {
 
   t.is(customerRes.status, 200)
 
-  const customerId = customerRes.body._id
-  const seatId = { seat: seatRes.body._id }
+  const bodyReq = { userId: customerRes.body._id, seatId: seatRes.body._id }
 
   const bookingRes = await request(app)
-    .post(`/theater/customer/${customerId}/booking`)
-    .send(seatId)
+    .post(`/theater/booking`)
+    .send(bodyReq)
 
   t.is(bookingRes.status, 200)
 })
 
 test('Attempt to book a reserved seat', async t => {
-  t.plan(3)
+  //Book first seat
 
   const seat = {
-    number: 8,
-    row: 17,
-    movie: 'La la land',
-    price: 8,
-    customer: new mongoose.Types.ObjectId('5962a5f37bde228394da6f72')
+    number: 6,
+    row: 9,
+    movie: faker.random.word(),
+    price: 8
   }
 
   const seatRes = await request(app)
@@ -236,60 +235,78 @@ test('Attempt to book a reserved seat', async t => {
 
   t.is(seatRes.status, 200)
 
-  const customer = {
+  const firstCustomer = {
+    firstName: 'Laura',
+    lastName: 'Kasas',
+    email: faker.internet.email()
+  }
+
+  const firstCustomerRes = await request(app)
+    .post('/theater/customer')
+    .send(firstCustomer)
+
+  t.is(firstCustomerRes.status, 200)
+
+  const bodyReq = {
+    userId: firstCustomerRes.body._id,
+    seatId: seatRes.body._id
+  }
+
+  const bookingRes = await request(app)
+    .post(`/theater/booking`)
+    .send(bodyReq)
+
+  t.is(bookingRes.status, 200)
+
+  //Make second booking
+
+  const secondCustomer = {
     firstName: 'Ramona',
     lastName: 'López',
     email: faker.internet.email()
   }
 
-  const customerRes = await request(app)
+  const secondCustomerRes = await request(app)
     .post('/theater/customer')
-    .send(customer)
+    .send(secondCustomer)
 
-  t.is(customerRes.status, 200)
+  t.is(secondCustomerRes.status, 200)
 
-  const customerId = customerRes.body._id
-  const seatId = { seat: seatRes.body._id }
+  const secondBodyReq = {
+    userId: secondCustomerRes.body._id,
+    seatId: seatRes.body._id
+  }
 
-  const bookingRes = await request(app)
-    .post(`/theater/customer/${customerId}/booking`)
-    .send(seatId)
+  const secondBookingRes = await request(app)
+    .post(`/theater/booking`)
+    .send(secondBodyReq)
 
-  t.is(bookingRes.status, 409)
+  t.is(secondBookingRes.status, 409)
 })
 
 // test('Attempt to book an nonexistent seat', async t => {
 //   t.plan(3)
 
-//   unexSeatId = new mongoose.Types.ObjectId('5962a5f37bde228399da6f72')
-
-//   const seatRes = await request(app)
-//     .post('/theater/seat')
-//     .send(seat)
-
-//   console.log(seatRes.body)
-//   t.is(seatRes.status, 200)
+//   const unexSeatId = mongoose.Types.ObjectId()
+//   console.log(`generated object id ${unexSeatId}`)
 
 //   const customer = {
-//     name: 'Ramona López',
+//     firstName: 'Ramona',
+//     lastName: 'López',
 //     email: faker.internet.email()
 //   }
 
 //   const customerRes = await request(app)
 //     .post('/theater/customer')
 //     .send(customer)
-//   console.log(customerRes.body)
 
 //   t.is(customerRes.status, 200)
 
-//   const customerId = customerRes.body._id
-//   const seatId = { seat: seatRes.body._id }
-//   console.log(customerId)
-//   console.log(seatId)
+//   const bodyReq = { userId: customerRes.body._id, seatId: unexSeatId }
 
 //   const bookingRes = await request(app)
-//     .post(`/theater/customer/${customerId}/booking`)
-//     .send(seatId)
+//     .post(`/theater/booking`)
+//     .send(bodyReq)
 
-//   t.is(bookingRes.status, 400)
+//   t.is(bookingRes.status, 409)
 // })

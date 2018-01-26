@@ -9,16 +9,23 @@ async function add(seat) {
 }
 
 async function find(id) {
-  return SeatModel.findOne({ _id: id }).populate('customer')
+  const foundSeat = await SeatModel.findOne({ _id: id }).populate('customer')
+  console.log(`Seat found in the database with id '${id}': ${foundSeat}`)
+  return foundSeat
 }
 
 async function findAvailableSeats() {
   return SeatModel.find({ customer: undefined })
 }
 
+async function findSeatBookedBy(id) {
+  return SeatModel.findOne({ customer: id })
+}
+
 module.exports = {
   findAll,
   find,
   findAvailableSeats,
-  add
+  add,
+  findSeatBookedBy
 }

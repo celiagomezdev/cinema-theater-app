@@ -9,7 +9,11 @@ async function add(customer) {
 }
 
 async function find(id) {
-  return CustomerModel.findOne({ _id: id }).populate('seat')
+  const foundCustomer = await CustomerModel.findOne({ _id: id })
+  console.log(
+    `Customer found in the database with id '${id}': ${foundCustomer}`
+  )
+  return foundCustomer
 }
 
 async function del(id) {
