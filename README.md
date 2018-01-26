@@ -1,6 +1,6 @@
 <h1 align>Cinema Theater App</h1>
 
-### Application for buying tickets for a cinema theater 📽
+### Backend application for buying tickets for a cinema theater 📽
 
 **Technology used**: Node.js, Express.js, MongoDB and mongoose.js.
 
@@ -13,9 +13,9 @@ To get the Node server running locally:
 * `npm install` to install all the dependencies
 * `node index.js` to start the local server (You will see logged in your console 'Server listening')
 
-# Code Overview
+## Code Overview
 
-## Dependencies
+### Dependencies
 
 > This is only information about the dependencies used in the project. Using the command `npm install` they will all be installed, as they are already defined in the package.json file.
 
@@ -31,7 +31,7 @@ To get the Node server running locally:
 * [nyc](https://github.com/istanbuljs/nyc) - Command line interface to use with AVA
 * [supertest](https://github.com/visionmedia/supertest) - Provides a high-level abstraction for testing HTTP
 
-## Application Structure
+### Application Structure
 
 * `index.js` - entry point of our application.
 
@@ -49,7 +49,7 @@ To get the Node server running locally:
 
 * `ìndex.html` - This html file will define our main view structure to be afterwards modelated by our different pug views. Here we will also implement the axios script that will allow us to make real time post and get requests from the google chrome console.
 
-## Error Handling
+### Error Handling
 
 In the file `app.js` we define our error-handling middleware for handling any possible error in our application and be able to show error messages that the user/client can understand.
 
@@ -63,9 +63,9 @@ We will consider different types of error:
 
 * [500](https://httpstatuses.com/500) - When any other internal error ocurrs.
 
-## Usage
+### Usage
 
-### Get list of customers
+#### Get list of customers
 
 `GET`
 
@@ -73,7 +73,7 @@ We will consider different types of error:
 /theater/customer/all
 ```
 
-### Add a new customer
+#### Add a new customer
 
 `POST`
 
@@ -92,7 +92,7 @@ Example:
 
 If there is already an user in the database with the same email, the user will receive a `409` response with the informative error.
 
-### Show details of a customer
+#### Show details of a customer
 
 `GET`
 
@@ -100,7 +100,7 @@ If there is already an user in the database with the same email, the user will r
 /theater/customer/detail/**THE_USER_ID**
 ```
 
-### Get list of all seats
+#### Get list of all seats
 
 `GET`
 
@@ -108,7 +108,7 @@ If there is already an user in the database with the same email, the user will r
 /theater/seat/all
 ```
 
-### Get list of available seats
+#### Get list of available seats
 
 `GET`
 
@@ -116,7 +116,7 @@ If there is already an user in the database with the same email, the user will r
 /theater/seat/available
 ```
 
-### Show details of a seat
+#### Show details of a seat
 
 `GET`
 
@@ -124,7 +124,7 @@ If there is already an user in the database with the same email, the user will r
 /theater/seat/detail/**THE_SEAT_ID**
 ```
 
-### Make a reservation
+#### Make a reservation
 
 `POST`
 
@@ -142,7 +142,7 @@ If the customer attemt to book a seat, but he/she already has a seat booked or t
 
 Once the request is made, and if no error is encountered, it will reserve this seat to the sepecified user.
 
-## Helpful Software
+### Helpful Software
 
 * I recommend using [Robomongo](https://robomongo.org/) (now called Robo 3T) to manage easily your MongoDB database.
 
