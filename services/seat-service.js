@@ -9,9 +9,7 @@ async function add(seat) {
 }
 
 async function find(id) {
-  const foundSeat = await SeatModel.findOne({ _id: id }).populate('customer')
-  console.log(`Seat found in the database with id '${id}': ${foundSeat}`)
-  return foundSeat
+  return await SeatModel.findOne({ _id: id }).populate('customer')
 }
 
 async function findAvailableSeats() {

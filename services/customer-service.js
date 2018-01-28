@@ -9,11 +9,7 @@ async function add(customer) {
 }
 
 async function find(id) {
-  const foundCustomer = await CustomerModel.findOne({ _id: id })
-  console.log(
-    `Customer found in the database with id '${id}': ${foundCustomer}`
-  )
-  return foundCustomer
+  return await CustomerModel.findOne({ _id: id })
 }
 
 async function del(id) {
