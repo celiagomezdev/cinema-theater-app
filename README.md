@@ -1,6 +1,6 @@
-<h1 align>Cinema Theater App</h1>
+<h1 align>Cinema Theater App 📽</h1>
 
-### Backend application for buying tickets for a cinema theater 📽
+### Backend application implemented as a REST API for buying tickets for a cinema theater.
 
 **Technology used**: Node.js, Express.js, MongoDB and mongoose.js.
 
@@ -8,10 +8,11 @@
 
 To get the Node server running locally:
 
-* Clone this repo
-* Set up MongoDB locally. [Link](https://www.mongodb.com/download-center?jmp=nav#community) to get started (Click on 'Community Server' Tab to download) > If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
-* `npm install` to install all the dependencies
-* `node index.js` to start the local server (You will see logged in your console 'Server listening')
+* Clone this repo.
+* Set up MongoDB locally. [Link](https://www.mongodb.com/download-center?jmp=nav#community) to get started (Click on 'Community Server' Tab to download). 
+> If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
+* `npm install` to install all the dependencies.
+* `node index.js` to start the local server (You will see logged in your console 'Server listening').
 
 ## Code Overview
 
@@ -59,7 +60,7 @@ We will consider different types of error:
 
 * [409](https://httpstatuses.com/409) - When the user creates an already existing user or tries to book a seat that is not available.
 
-* [422](https://httpstatuses.com/422) - When the user introduces empty or non valid data in the request.
+* [400](https://httpstatuses.com/400) - When the user introduces empty or non valid data in the request.
 
 * [500](https://httpstatuses.com/500) - When any other internal error ocurrs.
 
