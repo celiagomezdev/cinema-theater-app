@@ -56,7 +56,7 @@ test('Attempt to create a new customer with an empty field', async t => {
     .post('/theater/customer')
     .send(customer)
 
-  t.is(res.status, 422)
+  t.is(res.status, 400)
 })
 
 test('Attempt to create a new customer with an invalid field', async t => {
@@ -70,7 +70,7 @@ test('Attempt to create a new customer with an invalid field', async t => {
     .post('/theater/customer')
     .send(customer)
 
-  t.is(res.status, 422)
+  t.is(res.status, 400)
 })
 
 test('Attempt to create duplicated customers', async t => {
@@ -283,30 +283,3 @@ test('Attempt to book a reserved seat', async t => {
 
   t.is(secondBookingRes.status, 409)
 })
-
-// test('Attempt to book an nonexistent seat', async t => {
-//   t.plan(3)
-
-//   const unexSeatId = mongoose.Types.ObjectId()
-//   console.log(`generated object id ${unexSeatId}`)
-
-//   const customer = {
-//     firstName: 'Ramona',
-//     lastName: 'López',
-//     email: faker.internet.email()
-//   }
-
-//   const customerRes = await request(app)
-//     .post('/theater/customer')
-//     .send(customer)
-
-//   t.is(customerRes.status, 200)
-
-//   const bodyReq = { userId: customerRes.body._id, seatId: unexSeatId }
-
-//   const bookingRes = await request(app)
-//     .post(`/theater/booking`)
-//     .send(bodyReq)
-
-//   t.is(bookingRes.status, 409)
-// })

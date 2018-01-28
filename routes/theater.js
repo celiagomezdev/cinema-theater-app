@@ -31,36 +31,19 @@ router.post('/customer', async (req, res, next) => {
 })
 
 router.post('/booking', async (req, res, next) => {
-  console.log(`Received userId in routes: ${req.body.userId}`)
-  console.log(`Received seatId in routes: ${req.body.seatId}`)
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
-  if (await hasSeat(customer)) {
+  if (seat.customer) {
     return res.status(409).send({
-      message: 'This customer already has a booked seat.'
+      message:
+        'Sorry, there was an error when trying to book this seat. Please try again.'
     })
   }
 
-  if (await isBooked(seat)) {
-    return res.status(409).send({
-      message: 'This seat is not available.'
-    })
-  }
-
-  if (seatExists(seat) === false) {
-    return res.status(409).send({
-      message: `This seat doesn't exists.`
-    })
-  }
-
-  try {
-    seat.customer = customer._id
-    const updatedSeat = await seat.save()
-    return res.send(updatedSeat)
-  } catch (err) {
-    return next(err)
-  }
+  seat.customer = customer._id
+  const updatedSeat = await seat.save()
+  return res.send(updatedSeat)
 })
 
 //Seat routes
@@ -102,27 +85,5 @@ router.post('/seat', async (req, res, next) => {
     next(err)
   }
 })
-
-//Helper methods
-
-async function hasSeat(customer) {
-  const seatBookedBy = await SeatService.findSeatBookedBy(customer._id)
-  if (seatBookedBy != undefined || seatBookedBy != null) {
-    return true
-  }
-}
-
-function isBooked(seat) {
-  const seatCustomer = seat.customer
-  if (seatCustomer != undefined || seatCustomer != null) {
-    return true
-  }
-}
-
-async function seatExists(seat) {
-  if (seat != undefined || seat != null) {
-    return true
-  }
-}
 
 module.exports = router
