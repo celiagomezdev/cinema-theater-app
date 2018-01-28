@@ -1,8 +1,8 @@
 <h1 align>Cinema Theater App 📽</h1>
 
-### Backend application implemented as a REST API for buying tickets for a cinema theater.
+### Backend application implemented as a REST API for buying tickets for a cinema theater
 
-**Technology used**: Node.js, Express.js, MongoDB and mongoose.js.
+**Technology used**: Node.js, Express.js, MongoDB and mongoose.js
 
 ## Getting started
 
@@ -48,7 +48,7 @@ To get the Node server running locally:
 
 * `views/`- The view files of our application using the pug template.
 
-* `ìndex.html` - This html file will define our main view structure to be afterwards modelated by our different pug views. Here we will also implement the axios script that will allow us to make real time post and get requests from the google chrome console.
+* `ìndex.html` - This html file will define our main view structure to be afterwards modelated by our different pug views. Here we will also implement the axios script that will allow us to make real time POST and GET requests from the Google Chrome console.
 
 ### Error Handling
 
@@ -141,10 +141,10 @@ body: { userId: **THE_USER_ID**, seatId: **THE_SEAT_ID**}
 
 If the customer attemt to book a seat, but he/she already has a seat booked or that seat has been booked for any other customer, there will be a `409` response showing the correct error message to the user.
 
-Once the request is made, and if no error is encountered, it will reserve this seat to the sepecified user.
+Once the request is made, and if no error is encountered, it will reserve this seat to the specified user.
 
 ### Helpful Software
 
 * I recommend using [Robomongo](https://robomongo.org/) (now called Robo 3T) to manage easily your MongoDB database.
 
-* You can use [Axios](https://github.com/axios/axios) or [Postman](https://www.getpostman.com/) to perform the get and post requests.
+* You can use [Axios](https://github.com/axios/axios) or [Postman](https://www.getpostman.com/) to perform the GET and POST requests.
