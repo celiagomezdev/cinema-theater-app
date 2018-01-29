@@ -18,7 +18,7 @@ To get the Node server running locally:
 
 ### Dependencies
 
-> This is only information about the dependencies used in the project. Using the command `npm install` they will all be installed, as they are already defined in the package.json file.
+> This is only information about the dependencies used in the project. Using the command `npm install` as explained before, they will all be installed, as they are already included in the [package.json file](https://docs.npmjs.com/files/package.json).
 
 * [expressjs](https://github.com/expressjs/express) - Light-weight web application framework
 * [mongoose](https://github.com/Automattic/mongoose) - For modeling and mapping MongoDB data to javascript
@@ -139,9 +139,9 @@ body: { userId: **THE_USER_ID**, seatId: **THE_SEAT_ID**}
 
 `userId` and `seatId` are required fields.
 
-If the customer attemt to book a seat, but he/she already has a seat booked or that seat has been booked for any other customer, there will be a `409` response showing the correct error message to the user.
+Even though this should be prevented for the 3 minutes reserve time before the user makes the payment, if a customer attemts to book a seat that has already been booked for any other customer, there will be a `409` response showing the correct error message to the user.  
 
-Once the request is made, and if no error is encountered, it will reserve this seat to the specified user.
+Once the request is made, and if no error is encountered, it will reserve this seat to the specified user. That could be checked looking at the new details of the customer or seat using the routes explained before.
 
 ### Helpful Software
 
