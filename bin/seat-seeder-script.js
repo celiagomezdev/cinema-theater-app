@@ -11,26 +11,26 @@ const priceSelector = row => {
   return price
 }
 
-const generateSeat = (room, rowIndex, numberIndex) => ({
-  room: room,
+const generateSeat = (roomId, rowIndex, numberIndex) => ({
+  roomId: roomId,
   row: rowIndex + 1,
   number: numberIndex + 1,
   price: priceSelector(rowIndex + 1)
 })
 
-const generateSeats = (room, rows, seats) => {
+const generateSeats = (roomId, amountOfRows, amountOfSeats) => {
   const seatsArray = []
 
-  for (let r = 0; r < rows; r++) {
-    for (let s = 0; s < seats; s++) {
-      seatsArray.push(generateSeat(room, r, s))
+  for (let r = 0; r < amountOfRows; r++) {
+    for (let s = 0; s < amountOfSeats; s++) {
+      seatsArray.push(generateSeat(roomId, r, s))
     }
   }
 
   return seatsArray
 }
 
-const seats = generateSeats(1, 20, 10)
+const seats = generateSeats(1, 15, 10)
 
 fs.writeFile('./seats.json', JSON.stringify(seats), () => {
   console.log('Seats saved in json file')

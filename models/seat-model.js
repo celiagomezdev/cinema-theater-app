@@ -1,16 +1,9 @@
 const mongoose = require('mongoose')
 
 const SeatSchema = mongoose.Schema({
-  room: {
+  roomId: {
     type: Number,
     required: true
-  },
-  number: {
-    type: Number,
-    min: 1,
-    max: 10,
-    required: true,
-    unique: false
   },
   row: {
     type: Number,
@@ -19,11 +12,18 @@ const SeatSchema = mongoose.Schema({
     required: true,
     unique: false
   },
+  number: {
+    type: Number,
+    min: 1,
+    max: 10,
+    required: true,
+    unique: false
+  },
   price: {
     type: Number,
     required: true
   },
-  customer: {
+  customerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Customer'
   }
