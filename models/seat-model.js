@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const validate = require('mongoose-validator')
 
 const SeatSchema = mongoose.Schema({
   number: {
