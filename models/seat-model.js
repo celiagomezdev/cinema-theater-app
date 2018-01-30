@@ -29,7 +29,7 @@ const SeatSchema = mongoose.Schema({
   }
 })
 
-SeatSchema.index({ number: 1, row: 1 }, { unique: true })
+SeatSchema.index({ row: 1, number: 1 }, { unique: true })
 
 const SeatModel = mongoose.model('Seat', SeatSchema)
 

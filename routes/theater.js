@@ -34,14 +34,14 @@ router.post('/booking', async (req, res, next) => {
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
-  if (seat.customer) {
+  if (seat.customerId) {
     return res.status(409).send({
       message:
         'Sorry, there was an error when trying to book this seat. Please try again.'
     })
   }
 
-  seat.customer = customer._id
+  seat.customerId = customer._id
   const updatedSeat = await seat.save()
   return res.send(updatedSeat)
 })
