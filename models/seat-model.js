@@ -1,23 +1,23 @@
 const mongoose = require('mongoose')
 
 const SeatSchema = mongoose.Schema({
-  roomId: {
-    type: Number,
-    required: true
-  },
   row: {
     type: Number,
     min: 1,
-    max: 20,
+    max: 10,
     required: true,
     unique: false
   },
   number: {
     type: Number,
     min: 1,
-    max: 10,
+    max: 8,
     required: true,
     unique: false
+  },
+  movieTitle: {
+    type: String,
+    required: true
   },
   price: {
     type: Number,

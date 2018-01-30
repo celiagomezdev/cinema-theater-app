@@ -1,7 +1,7 @@
-const CustomerModel = require('./models/customer-model')
-const SeatModel = require('./models/seat-model')
+const CustomerModel = require('../models/customer-model')
+const SeatModel = require('../models/seat-model')
 
-require('./database-connection')
+require('../database-connection')
 
 function emptyDb() {
   CustomerModel.remove({}, function(err, result) {
