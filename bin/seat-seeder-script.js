@@ -1,5 +1,7 @@
 const faker = require('faker')
 const fs = require('fs')
+const request = require('supertest')
+const app = require('../app')
 
 const priceSelector = row => {
   let price = 0
@@ -35,3 +37,17 @@ const seats = generateSeats(10, 8, 'Arrival')
 fs.writeFile('./seats.json', JSON.stringify(seats), () => {
   console.log('Seats saved in json file')
 })
+
+const saveSeats = seats => {
+  for (seat of seats) {
+    request(app)
+      .post('/theater/seat')
+      .send(seat)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) throw err
+      })
+  }
+}
+
+saveSeats(seats)
