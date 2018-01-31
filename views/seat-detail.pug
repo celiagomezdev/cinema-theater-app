@@ -3,17 +3,17 @@ extends layout
 block content
   if seat 
     - var availability = ''
-    if seat.customer
-      - availability = `Seat not available. Booked by customer with Id: ${seat.customer}`
+    if seat.customerId
+      - availability = `Seat not available. Booked by customer with Id: ${seat.customerId}`
     else
       - availability = 'Available'
 
     h1 Seat: N#{seat.number}R#{seat.row}
     p Seat details:
     ul
-      p <b>Number</b>: #{seat.number}
       p <b>Row</b>: #{seat.row}
-      p <b>Movie</b>: #{seat.movie}
+      p <b>Number</b>: #{seat.number}
+      p <b>Movie</b>: #{seat.movieTitle}
       p <b>Price</b>: #{seat.price}
       p <b>Status</b>: #{availability}
       p <b>Seat Id</b>: #{seat._id}

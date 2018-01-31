@@ -7,8 +7,8 @@ block content
       ul
         each seat, index in seats 
           - var availability = ''
-          if seat.customer 
-            - availability = `Seat not available. Booked by customer with Id: ${seat.customer}`
+          if seat.customerId
+            - availability = `Seat not available. Booked by customer with Id: ${seat.customerId}`
           else
             - availability = 'Available'
           p #{index + 1}. <b>Number</b>: #{seat.number}. <b>Row</b>: #{seat.row}. <b>Seat Id</b>: #{seat._id}. <b>#{availability}</b>
