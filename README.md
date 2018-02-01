@@ -9,10 +9,11 @@
 To get the Node server running locally:
 
 * Clone this repo.
-* Set up MongoDB locally. [Link](https://www.mongodb.com/download-center?jmp=nav#community) to get started (Click on 'Community Server' Tab to download). 
-> If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
+* Set up MongoDB locally. [Link](https://www.mongodb.com/download-center?jmp=nav#community) to get started (Click on 'Community Server' Tab to download).
+  > If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
 * `npm install` to install all the dependencies.
 * `node index.js` to start the local server (You will see logged in your console 'Server listening').
+* View in browser at http://localhost:3000
 
 ## Code Overview
 
@@ -139,7 +140,7 @@ body: { userId: **THE_USER_ID**, seatId: **THE_SEAT_ID**}
 
 `userId` and `seatId` are required fields.
 
-Even though this should be prevented for the 3 minutes reserve time before the user makes the payment, if a customer attemts to book a seat that has already been booked for any other customer, there will be a `409` response showing the correct error message to the user.  
+Even though this should be prevented for the 3 minutes reserve time before the user makes the payment, if a customer attemts to book a seat that has already been booked for any other customer, there will be a `409` response showing the correct error message to the user.
 
 Once the request is made, and if no error is encountered, it will reserve this seat to the specified user. That could be checked looking at the new details of the customer or seat using the routes explained before.
 

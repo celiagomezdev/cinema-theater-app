@@ -4,11 +4,11 @@ block content
   if seat 
     - var availability = ''
     if seat.customerId
-      - availability = `Seat not available. Booked by customer with Id: ${seat.customerId}`
+      - availability = `Seat not available. Booked by customer: ${seat.customerId}`
     else
       - availability = 'Available'
 
-    h1 Seat: N#{seat.number}R#{seat.row}
+    h1 Seat: R#{seat.row}N#{seat.number}
     p Seat details:
     ul
       p <b>Row</b>: #{seat.row}
