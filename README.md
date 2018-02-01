@@ -34,7 +34,7 @@ To get the Node server running locally:
 
 ### Application Structure
 
-* `index.js` - entry point of our application.
+* `index.js` - entry point of our application. 
 
 * `app.js`- defines our express server and the Error Handling middelware.
 
@@ -64,7 +64,9 @@ We will consider different types of error:
 
 * [500](https://httpstatuses.com/500) - When any other internal error ocurrs.
 
-### Usage
+###
+
+### API Endpoints
 
 #### Get list of customers
 
@@ -89,7 +91,7 @@ Example:
 { firstName: 'Joan', lastName: 'López', email: 'joanlopez567@gmail.com' }
 ```
 
-`firstName`, `lastName` and `email` are required fields. If any of the entries are empty or not valid, the user will receive a `422` response with the correct error message.
+`firstName`, `lastName` and `email` are required fields. If any of the entries are empty or not valid, the user will receive a `400` response with the correct error message.
 
 If there is already an user in the database with the same email, the user will receive a `409` response with the informative error.
 
