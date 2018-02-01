@@ -13,6 +13,7 @@ To get the Node server running locally:
 > If you have homebrew in your machine, use the following command in your Terminal: `brew install mongodb`. And then activate it with the command: `brew services start mongodb`.
 * `npm install` to install all the dependencies.
 * `node index.js` to start the local server (You will see logged in your console 'Server listening').
+* View in browser at http://localhost:3000
 
 ## Code Overview
 
