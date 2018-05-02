@@ -26,6 +26,9 @@ const SeatSchema = mongoose.Schema({
   customerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Customer'
+  },
+  reservedAt: {
+    type: Date
   }
 })
 

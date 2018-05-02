@@ -30,7 +30,7 @@ router.post('/customer', async (req, res, next) => {
   }
 })
 
-router.post('/reserve', async (req, res, next) => {
+router.post('/reservation', async (req, res, next) => {
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
