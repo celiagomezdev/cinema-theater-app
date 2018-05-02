@@ -29,6 +29,9 @@ const SeatSchema = mongoose.Schema({
   },
   reservedAt: {
     type: Date
+  },
+  bookedAt: {
+    type: Date
   }
 })
 
