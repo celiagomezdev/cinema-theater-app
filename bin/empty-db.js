@@ -3,13 +3,16 @@ const SeatModel = require('../models/seat-model')
 
 require('../database-connection')
 
-function emptyDb() {
+function emptyCustomerDb() {
   CustomerModel.remove({}, function(err, result) {
     if (err) return err
     console.log(
       'Customers collection removed: ' + JSON.stringify(result.result)
     )
   })
+}
+
+function emptySeatDb() {
   SeatModel.remove({}, function(err, result) {
     if (err) return err
     console.log('Seats collection removed: ' + JSON.stringify(result.result))
@@ -17,5 +20,6 @@ function emptyDb() {
 }
 
 module.exports = {
-  emptyDb
+  emptyCustomerDb,
+  emptySeatDb
 }

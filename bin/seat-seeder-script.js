@@ -2,6 +2,11 @@ const faker = require('faker')
 const fs = require('fs')
 const request = require('supertest')
 const app = require('../app')
+const databaseHelper = require('../bin/empty-db')
+
+//Empty Seat database
+
+databaseHelper.emptySeatDb()
 
 const priceSelector = row => {
   let price = 0
