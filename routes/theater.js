@@ -30,20 +30,52 @@ router.post('/customer', async (req, res, next) => {
   }
 })
 
-router.post('/booking', async (req, res, next) => {
+router.post('/reservation', async (req, res, next) => {
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
   if (seat.customerId) {
     return res.status(409).send({
       message:
-        'Sorry, there was an error when trying to book this seat. Please try again.'
+        'Sorry, this ticket is reserved or booked. Please choose another one or try again later.'
     })
   }
 
+  //Update seat data - Reservation for 3 minutes
   seat.customerId = customer._id
+  seat.reservedAt = Date.now()
   const updatedSeat = await seat.save()
   return res.send(updatedSeat)
+})
+
+router.post('/booking', async (req, res, next) => {
+  const customer = await CustomerService.find(req.body.userId)
+  const seat = await SeatService.find(req.body.seatId)
+
+  if (!seat.customerId) {
+    return res.status(409).send({
+      message:
+        'You should reserve your ticket first. Or maybe your reservation expired. Please try again'
+    })
+  }
+
+  if (seat.customerId && seat.customerId !== customer._id) {
+    return res.status(409).send({
+      message:
+        'Sorry, this ticket is already reserved or booked. Please choose another one or try again later.'
+    })
+  }
+
+  if (customer.funds - seat.price < 0) {
+    return res.status(409).send({
+      message: "Sorry, you don't have enough funds to book this ticket."
+    })
+  }
+
+  //Update customer data
+  customer.funds = customer.funds - seat.price
+  const updatedCustomer = await customer.save()
+  return res.send(updatedCustomer)
 })
 
 //Seat routes

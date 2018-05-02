@@ -7,7 +7,8 @@ import databaseHelper from '../bin/empty-db'
 
 //Helpers
 
-databaseHelper.emptyDb()
+databaseHelper.emptySeatDb()
+databaseHelper.emptyCustomerDb()
 
 //Customer tests
 
