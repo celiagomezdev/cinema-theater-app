@@ -72,6 +72,11 @@ router.post('/booking', async (req, res, next) => {
     })
   }
 
+  //Update seat data
+  seat.bookedAt = Date.now()
+  const updatedSeat = await seat.save()
+  return res.send(updatedSeat)
+
   //Update customer data
   customer.funds = customer.funds - seat.price
   const updatedCustomer = await customer.save()
