@@ -53,6 +53,7 @@ const saveSeats = seats => {
         if (err) throw err
       })
   }
+  console.log('Seats saved in database')
 }
 
 saveSeats(seats)

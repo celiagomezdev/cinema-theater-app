@@ -52,10 +52,7 @@ router.post('/booking', async (req, res, next) => {
   const seat = await SeatService.find(req.body.seatId)
 
   if (!seat.customerId) {
-    console.log(
-      'You should reserve your ticket first. Or maybe your reservation expired. Please try again'
-    )
-    return res.status(409).send({
+    return res.status(412).send({
       message:
         'You should reserve your ticket first. Or maybe your reservation expired. Please try again'
     })
@@ -65,9 +62,6 @@ router.post('/booking', async (req, res, next) => {
     seat.customerId &&
     seat.customerId.toString() !== customer._id.toString()
   ) {
-    console.log(
-      'Sorry, this ticket is already reserved or booked. Please choose another one or try again later.'
-    )
     return res.status(409).send({
       message:
         'Sorry, this ticket is already reserved or booked. Please choose another one or try again later.'
@@ -75,8 +69,7 @@ router.post('/booking', async (req, res, next) => {
   }
 
   if (customer.funds - seat.price < 0) {
-    console.log("Sorry, you don't have enough funds to book this ticket.")
-    return res.status(409).send({
+    return res.status(412).send({
       message: "Sorry, you don't have enough funds to book this ticket."
     })
   }
