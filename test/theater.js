@@ -288,7 +288,7 @@ test('Attempt to reserve an already reserved seat', async t => {
 //Make a purchase
 
 test('Make a booking', async t => {
-  t.plan(3)
+  t.plan(4)
 
   const seat = {
     row: 9,
@@ -315,7 +315,20 @@ test('Make a booking', async t => {
 
   t.is(customerRes.status, 200)
 
-  //Make a booking first
+  //Make a reservation first
+
+  const reservationBodyReq = {
+    userId: customerRes.body._id,
+    seatId: seatRes.body._id
+  }
+
+  const reservationRes = await request(app)
+    .post('/theater/reservation')
+    .send(reservationBodyReq)
+
+  t.is(reservationRes.status, 200)
+
+  //Make the booking
 
   const bookingBodyReq = {
     userId: customerRes.body._id,
@@ -323,7 +336,7 @@ test('Make a booking', async t => {
   }
 
   const bookingRes = await request(app)
-    .post('/theater/reservation')
+    .post('/theater/booking')
     .send(bookingBodyReq)
 
   t.is(bookingRes.status, 200)

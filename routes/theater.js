@@ -31,7 +31,6 @@ router.post('/customer', async (req, res, next) => {
 })
 
 router.post('/reservation', async (req, res, next) => {
-  const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
   if (seat.customerId) {
@@ -42,7 +41,7 @@ router.post('/reservation', async (req, res, next) => {
   }
 
   //Update seat data - Reservation for 3 minutes
-  seat.customerId = customer._id
+  seat.customerId = req.body.userId
   seat.reservedAt = Date.now()
   const updatedSeat = await seat.save()
   return res.send(updatedSeat)
@@ -53,13 +52,22 @@ router.post('/booking', async (req, res, next) => {
   const seat = await SeatService.find(req.body.seatId)
 
   if (!seat.customerId) {
+    console.log(
+      'You should reserve your ticket first. Or maybe your reservation expired. Please try again'
+    )
     return res.status(409).send({
       message:
         'You should reserve your ticket first. Or maybe your reservation expired. Please try again'
     })
   }
 
-  if (seat.customerId && seat.customerId !== customer._id) {
+  if (
+    seat.customerId &&
+    seat.customerId.toString() !== customer._id.toString()
+  ) {
+    console.log(
+      'Sorry, this ticket is already reserved or booked. Please choose another one or try again later.'
+    )
     return res.status(409).send({
       message:
         'Sorry, this ticket is already reserved or booked. Please choose another one or try again later.'
@@ -67,6 +75,7 @@ router.post('/booking', async (req, res, next) => {
   }
 
   if (customer.funds - seat.price < 0) {
+    console.log("Sorry, you don't have enough funds to book this ticket.")
     return res.status(409).send({
       message: "Sorry, you don't have enough funds to book this ticket."
     })
@@ -75,12 +84,12 @@ router.post('/booking', async (req, res, next) => {
   //Update seat data
   seat.bookedAt = Date.now()
   const updatedSeat = await seat.save()
-  return res.send(updatedSeat)
 
   //Update customer data
   customer.funds = customer.funds - seat.price
   const updatedCustomer = await customer.save()
-  return res.send(updatedCustomer)
+
+  return res.send(updatedSeat)
 })
 
 //Seat routes
