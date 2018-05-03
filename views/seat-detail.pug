@@ -1,24 +1,28 @@
 extends layout
 
 block content
-  if seat 
-    - var availability = ''
-    if seat.customerId
-      - availability = `Seat not available. Booked by customer: ${seat.customerId}`
-    else
-      - availability = 'Available'
+    if seat 
+      - var availability = ''
+      if seat.customerId
+        - availability = `Seat not available. Booked by customer with Id: ${seat.customerId}`
+      else
+        - availability = 'Available'
+   
+      h1 Seat: R#{seat.row} N#{seat.number}
+      p Seat details:
+        ul
+          p <b>Seat Id</b>: #{seat._id}
+          p <b>Row</b>: #{seat.row}
+          p <b>Number</b>: #{seat.number}
+          p <b>Movie</b>: #{seat.movieTitle}
+          p <b>Price</b>: #{seat.price}
+          p <b>Status</b>: #{availability}
+          p <b>Customer Id</b>: #{seat.customerId}
+          p <b>Reserved At</b>: #{seat.reservedAt}
+          p <b>Booked At</b>: #{seat.bookedAt}
 
-    h1 Seat: R#{seat.row}N#{seat.number}
-    p Seat details:
-    ul
-      p <b>Row</b>: #{seat.row}
-      p <b>Number</b>: #{seat.number}
-      p <b>Movie</b>: #{seat.movieTitle}
-      p <b>Price</b>: #{seat.price}
-      p <b>Status</b>: #{availability}
-      p <b>Seat Id</b>: #{seat._id}
+    else 
+      h1 We couldn't find this seat!
 
-  else 
-   h1 We couldn't find this seat!
-  script.
-    console.log(!JSON.stringify(seat))
+    script.
+      console.log(!JSON.stringify(seat))

@@ -9,7 +9,7 @@ async function add(seat) {
 }
 
 async function find(id) {
-  return await SeatModel.findOne({ _id: id }).populate('customerId')
+  return await SeatModel.findOne({ _id: id })
 }
 
 async function findAvailableSeats() {

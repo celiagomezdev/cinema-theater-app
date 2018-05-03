@@ -25,8 +25,7 @@ const SeatSchema = mongoose.Schema(
       required: true
     },
     customerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Customer'
+      type: mongoose.Schema.Types.ObjectId
     },
     reservedAt: {
       type: Date
