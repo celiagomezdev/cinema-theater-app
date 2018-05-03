@@ -27,19 +27,19 @@ const SeatSchema = mongoose.Schema(
     customerId: {
       type: mongoose.Schema.Types.ObjectId
     },
-    reservedAt: {
+    bookedAt: {
       type: Date
     },
-    bookedAt: {
+    purchasedAt: {
       type: Date
     }
   },
   {
     toJSON: {
       transform: (doc, ret) => {
-        const reservationExpired = (Date.now() - ret.reservedAt) / 1000 > 180
-        if (reservationExpired && bookedAt === null) {
-          delete ret.customerId && ret.reservedAt
+        const bookingExpired = (Date.now() - ret.bookedAt) / 1000 > 180
+        if (bookingExpired && purchasedAt === null) {
+          delete ret.customerId && ret.bookedAt
         }
       }
     }

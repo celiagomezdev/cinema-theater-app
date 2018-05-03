@@ -3,8 +3,10 @@ extends layout
 block content
     if seat 
       - var availability = ''
-      if seat.customerId
-        - availability = `Seat not available. Booked by customer with Id: ${seat.customerId}`
+      if seat.bookedAt
+        - availability = 'Booked'
+      else if seat.purchasedAt
+        - availability = 'Sold'
       else
         - availability = 'Available'
    
