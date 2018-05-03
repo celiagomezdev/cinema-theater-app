@@ -183,7 +183,7 @@ test('Attempt to create duplicated seats', async t => {
 
 // Reservation and Booking tests
 
-test('Make a booking', async t => {
+test('Make a reservation', async t => {
   t.plan(3)
 
   const seat = {
@@ -214,13 +214,13 @@ test('Make a booking', async t => {
   const bodyReq = { userId: customerRes.body._id, seatId: seatRes.body._id }
 
   const bookingRes = await request(app)
-    .post(`/theater/booking`)
+    .post('/theater/reservation')
     .send(bodyReq)
 
   t.is(bookingRes.status, 200)
 })
 
-test('Attempt to book an already booked seat', async t => {
+test('Attempt to reserve an already reserved seat', async t => {
   //Book first seat
 
   const seat = {
@@ -254,7 +254,7 @@ test('Attempt to book an already booked seat', async t => {
   }
 
   const bookingRes = await request(app)
-    .post(`/theater/booking`)
+    .post(`/theater/reservation`)
     .send(bodyReq)
 
   t.is(bookingRes.status, 200)
@@ -279,8 +279,52 @@ test('Attempt to book an already booked seat', async t => {
   }
 
   const secondBookingRes = await request(app)
-    .post(`/theater/booking`)
+    .post(`/theater/reservation`)
     .send(secondBodyReq)
 
   t.is(secondBookingRes.status, 409)
+})
+
+//Make a purchase
+
+test('Make a booking', async t => {
+  t.plan(3)
+
+  const seat = {
+    row: 9,
+    number: 7,
+    movieTitle: 'Arrival',
+    price: 8
+  }
+
+  const seatRes = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  t.is(seatRes.status, 200)
+
+  const customer = {
+    firstName: 'Peter',
+    lastName: 'Böhme',
+    email: faker.internet.email()
+  }
+
+  const customerRes = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  t.is(customerRes.status, 200)
+
+  //Make a booking first
+
+  const bookingBodyReq = {
+    userId: customerRes.body._id,
+    seatId: seatRes.body._id
+  }
+
+  const bookingRes = await request(app)
+    .post('/theater/reservation')
+    .send(bookingBodyReq)
+
+  t.is(bookingRes.status, 200)
 })

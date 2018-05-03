@@ -30,7 +30,7 @@ router.post('/customer', async (req, res, next) => {
   }
 })
 
-router.post('/booking', async (req, res, next) => {
+router.post('/reservation', async (req, res, next) => {
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
@@ -43,12 +43,12 @@ router.post('/booking', async (req, res, next) => {
 
   //Update seat data - Reservation for 3 minutes
   seat.customerId = customer._id
-  seat.bookedAt = Date.now()
+  seat.reservedAt = Date.now()
   const updatedSeat = await seat.save()
   return res.send(updatedSeat)
 })
 
-router.post('/purchase', async (req, res, next) => {
+router.post('/booking', async (req, res, next) => {
   const customer = await CustomerService.find(req.body.userId)
   const seat = await SeatService.find(req.body.seatId)
 
@@ -73,7 +73,7 @@ router.post('/purchase', async (req, res, next) => {
   }
 
   //Update seat data
-  seat.purchasedAt = Date.now()
+  seat.bookedAt = Date.now()
   const updatedSeat = await seat.save()
   return res.send(updatedSeat)
 
