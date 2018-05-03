@@ -220,67 +220,67 @@ test('Make a booking', async t => {
   t.is(bookingRes.status, 200)
 })
 
-// test('Attempt to book an already booked seat', async t => {
-//   //Book first seat
+test('Attempt to book an already booked seat', async t => {
+  //Book first seat
 
-//   const seat = {
-//     row: 6,
-//     number: 5,
-//     movieTitle: 'Arrival',
-//     price: 8
-//   }
+  const seat = {
+    row: 6,
+    number: 5,
+    movieTitle: 'Arrival',
+    price: 8
+  }
 
-//   const seatRes = await request(app)
-//     .post('/theater/seat')
-//     .send(seat)
+  const seatRes = await request(app)
+    .post('/theater/seat')
+    .send(seat)
 
-//   t.is(seatRes.status, 200)
+  t.is(seatRes.status, 200)
 
-//   const firstCustomer = {
-//     firstName: 'Laura',
-//     lastName: 'Kasas',
-//     email: faker.internet.email()
-//   }
+  const firstCustomer = {
+    firstName: 'Laura',
+    lastName: 'Kasas',
+    email: faker.internet.email()
+  }
 
-//   const firstCustomerRes = await request(app)
-//     .post('/theater/customer')
-//     .send(firstCustomer)
+  const firstCustomerRes = await request(app)
+    .post('/theater/customer')
+    .send(firstCustomer)
 
-//   t.is(firstCustomerRes.status, 200)
+  t.is(firstCustomerRes.status, 200)
 
-//   const bodyReq = {
-//     userId: firstCustomerRes.body._id,
-//     seatId: seatRes.body._id
-//   }
+  const bodyReq = {
+    userId: firstCustomerRes.body._id,
+    seatId: seatRes.body._id
+  }
 
-//   const bookingRes = await request(app)
-//     .post(`/theater/booking`)
-//     .send(bodyReq)
+  const bookingRes = await request(app)
+    .post(`/theater/booking`)
+    .send(bodyReq)
 
-//   t.is(bookingRes.status, 200)
+  t.is(bookingRes.status, 200)
 
-//   //Make second booking
+  //Make second booking
 
-//   const secondCustomer = {
-//     firstName: 'Ramona',
-//     lastName: 'López',
-//     email: faker.internet.email()
-//   }
+  const secondCustomer = {
+    firstName: 'Ramona',
+    lastName: 'López',
+    email: faker.internet.email()
+  }
 
-//   const secondCustomerRes = await request(app)
-//     .post('/theater/customer')
-//     .send(secondCustomer)
+  const secondCustomerRes = await request(app)
+    .post('/theater/customer')
+    .send(secondCustomer)
 
-//   t.is(secondCustomerRes.status, 200)
+  t.is(secondCustomerRes.status, 200)
 
-//   const secondBodyReq = {
-//     userId: secondCustomerRes.body._id,
-//     seatId: seatRes.body._id
-//   }
+  const secondBodyReq = {
+    userId: secondCustomerRes.body._id,
+    seatId: seatRes.body._id
+  }
 
-//   const secondBookingRes = await request(app)
-//     .post(`/theater/booking`)
-//     .send(secondBodyReq)
+  const secondBookingRes = await request(app)
+    .post(`/theater/booking`)
+    .send(secondBodyReq)
 
-//   t.is(secondBookingRes.status, 409)
-// })
+  t.is(secondBookingRes.status, 409)
+})
