@@ -341,3 +341,70 @@ test('Make a booking', async t => {
 
   t.is(bookingRes.status, 200)
 })
+
+test('Attempt to book an already booked or reserved seat', async t => {
+  t.plan(5)
+
+  const seat = {
+    row: 6,
+    number: 2,
+    movieTitle: 'Arrival',
+    price: 8
+  }
+
+  const seatRes = await request(app)
+    .post('/theater/seat')
+    .send(seat)
+
+  t.is(seatRes.status, 200)
+
+  const customer = {
+    firstName: 'Charles',
+    lastName: 'Ros',
+    email: faker.internet.email()
+  }
+
+  const customerRes = await request(app)
+    .post('/theater/customer')
+    .send(customer)
+
+  t.is(customerRes.status, 200)
+
+  //Another user reserves that seat
+
+  const reservationBodyReq = {
+    userId: customerRes.body._id,
+    seatId: seatRes.body._id
+  }
+
+  const reservationRes = await request(app)
+    .post('/theater/reservation')
+    .send(reservationBodyReq)
+
+  t.is(reservationRes.status, 200)
+
+  //Next user makes a booking for the same seat
+
+  const secondCustomer = {
+    firstName: 'Ana',
+    lastName: 'Riess',
+    email: faker.internet.email()
+  }
+
+  const secondCustomerRes = await request(app)
+    .post('/theater/customer')
+    .send(secondCustomer)
+
+  t.is(secondCustomerRes.status, 200)
+
+  const bookingBodyReq = {
+    userId: secondCustomerRes.body._id,
+    seatId: seatRes.body._id
+  }
+
+  const bookingRes = await request(app)
+    .post('/theater/booking')
+    .send(bookingBodyReq)
+
+  t.is(bookingRes.status, 409)
+})
