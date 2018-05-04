@@ -4,6 +4,18 @@ const router = express.Router()
 const CustomerService = require('../services/customer-service')
 const SeatService = require('../services/seat-service')
 
+//Helper methods
+
+function extractValues(obj) {
+  return {
+    number: obj.number,
+    row: obj.row,
+    _id: obj._id,
+    movieTitle: obj.movieTitle,
+    price: obj.price
+  }
+}
+
 //Customer routes
 
 router.get('/customer', async (req, res, next) => {
@@ -34,7 +46,6 @@ router.post('/reservation', async (req, res, next) => {
   const seat = await SeatService.find(req.body.seatId)
 
   if (seat.customerId && seat.reservationIsValid()) {
-    console.log('is reading it')
     return res.status(409).send({
       message:
         'Sorry, this ticket is reserved or booked. Please choose another one or try again later.'
@@ -108,7 +119,12 @@ router.get('/seat/detail/:id/json', async (req, res, next) => {
 
 router.get('/seat/all', async (req, res, next) => {
   const seats = await SeatService.findAll()
-  res.render('seat-list', { seats })
+  const displayableSeats = seats.map(s => ({
+    ...extractValues(s),
+    available: !(s.customerId && s.reservationIsValid())
+  }))
+
+  res.render('seat-list', { seats: displayableSeats })
 })
 
 router.get('/seat/available', async (req, res, next) => {
