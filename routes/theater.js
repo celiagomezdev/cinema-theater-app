@@ -33,14 +33,15 @@ router.post('/customer', async (req, res, next) => {
 router.post('/reservation', async (req, res, next) => {
   const seat = await SeatService.find(req.body.seatId)
 
-  if (seat.customerId) {
+  if (seat.customerId && seat.reservationIsValid()) {
+    console.log('is reading it')
     return res.status(409).send({
       message:
         'Sorry, this ticket is reserved or booked. Please choose another one or try again later.'
     })
   }
 
-  //Update seat data - Reservation for 3 minutes
+  //Update seat data
   seat.customerId = req.body.userId
   seat.reservedAt = Date.now()
   const updatedSeat = await seat.save()
