@@ -3,6 +3,7 @@ const router = express.Router()
 
 const CustomerService = require('../services/customer-service')
 const SeatService = require('../services/seat-service')
+const SeatModel = require('../models/seat-model')
 
 //Helper methods
 
@@ -53,10 +54,23 @@ router.post('/reservation', async (req, res, next) => {
   }
 
   //Update seat data
-  seat.customerId = req.body.userId
-  seat.reservedAt = Date.now()
-  const updatedSeat = await seat.save()
-  return res.send(updatedSeat)
+
+  const updatedSeat = await SeatModel.findByIdAndUpdate(
+    { _id: req.body.seatId },
+    {
+      customerId: req.body.userId,
+      reservedAt: Date.now()
+    },
+    { new: true }
+  )
+
+  console.log(req.body.seatId)
+  console.log(typeof req.body.seatId)
+  console.log(req.body.userId)
+  console.log(typeof req.body.userId)
+
+  console.log(updatedSeat)
+  res.send(updatedSeat)
 })
 
 router.post('/booking', async (req, res, next) => {

@@ -16,6 +16,10 @@ async function findAvailableSeats() {
   return SeatModel.find({ customerId: undefined })
 }
 
+async function findByIdAndUpdate(id) {
+  return SeatModel.findByIdAndUpdate({ _id: id })
+}
+
 async function findSeatBookedBy(id) {
   return SeatModel.findOne({ customerId: id })
 }
@@ -25,5 +29,6 @@ module.exports = {
   find,
   findAvailableSeats,
   add,
-  findSeatBookedBy
+  findSeatBookedBy,
+  findByIdAndUpdate
 }

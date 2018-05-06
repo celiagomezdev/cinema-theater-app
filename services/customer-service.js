@@ -9,7 +9,11 @@ async function add(customer) {
 }
 
 async function find(id) {
-  return await CustomerModel.findOne({ _id: id })
+  return CustomerModel.findOne({ _id: id })
+}
+
+async function findByIdAndUpdate(id) {
+  return CustomerModel.findByIdAndUpdate({ _id: id })
 }
 
 async function del(id) {
@@ -19,5 +23,6 @@ async function del(id) {
 module.exports = {
   findAll,
   find,
-  add
+  add,
+  findByIdAndUpdate
 }
